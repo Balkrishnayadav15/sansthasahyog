@@ -10,17 +10,104 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
+			<groupId>jsp-api.jar</groupId>
+			<artifactId>jsp-api.jar</artifactId>
+			<version>1.0.4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jsp-api.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-			<scope>provided</scope>
+			<groupId>servlet-api.jar</groupId>
+			<artifactId>servlet-api.jar</artifactId>
+			<version>1.0.4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/servlet-api.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>commons-logging-1.0.4.jar</groupId>
+			<artifactId>commons-logging-1.0.4.jar</artifactId>
+			<version>1.0.4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-logging-1.0.4.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang-2.6.jar</groupId>
+			<artifactId>commons-lang-2.6.jar</artifactId>
+			<version>1.0.4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-lang-2.6.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>joda-time-2.1.jar</groupId>
+			<artifactId>joda-time-2.1.jar</artifactId>
+			<version>2.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/joda-time-2.1.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>log4j-1.2.17.jar</groupId>
+			<artifactId>log4j-1.2.17.jar</artifactId>
+			<version>1.2.17</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/log4j-1.2.17.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>mail.jar</groupId>
+			<artifactId>mail.jar</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/mail.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>ojdbc14.jar</groupId>
+			<artifactId>ojdbc14.jar</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/ojdbc14.jar</systemPath>
+		</dependency>
+		
+		
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-api</artifactId>
+		  <version>1.7.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>log4j</groupId>
+		  <artifactId>log4j</artifactId>
+		  <version>1.2.17</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>jackson-core-2.9.8.jar</groupId>
+			<artifactId>jackson-core-2.9.8.jar</artifactId>
+			<version>2.6.7</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jackson-core-2.9.8.jar</systemPath>
+		</dependency>	
+		<dependency>
+			<groupId>jackson-annotations-2.9.0.jar</groupId>
+			<artifactId>jackson-annotations-2.9.0.jar</artifactId>
+			<version>2.6.7</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jackson-annotations-2.9.0.jar</systemPath>
+		</dependency>	
+		<dependency>
+			<groupId>jackson-databind-2.9.8.jar</groupId>
+			<artifactId>jackson-databind-2.9.8.jar</artifactId>
+			<version>2.6.7</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jackson-databind-2.9.8.jar</systemPath>
+		</dependency>	
+		
 	</dependencies>
 
 	<build>

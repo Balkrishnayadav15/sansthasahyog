@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-	"http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
 
 <head>
@@ -18,6 +17,7 @@
     <link rel="stylesheet" href="css/themify-icons.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
+	 <link rel="stylesheet" href="css/register.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -30,7 +30,7 @@
                     <div class="row align-items-center justify-content-between no-gutters">
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
-                                <a href="index.jsp">
+                                <a href="index.html">
                                     <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
                                 </a>
                             </div>
@@ -39,16 +39,16 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">home</a></li>
-                                        <li><a href="index.jsp">About</a></li>
-                                        <li><a href="index.jsp">Advertisment Area</a></li>
+                                        <li><a class="active" href="index.html">home</a></li>
+                                        <li><a href="index.html">About</a></li>
+                                        <li><a href="index.html">Advertisment Area</a></li>
                                         
                                         <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="index.jsp">Photos</a></li>
+                                                <li><a href="index.html">Photos</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="index.jsp">Contact</a></li>
+                                        <li><a href="index.html">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -73,25 +73,25 @@
     <!-- header-end -->
 
     <!-- slider_area_start -->
-    <div class="slider_area ">
-        <div class="slider_area_inner slider_bg_1 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-7">
-                        <div class="single_slider">
-                            <div class="slider_text">
-                                <label style="color: white;font-size: 35px;font-family: 'Playfair Display', serif;">High Quality</label<br>
-                                <label style="color: white;font-size: 30px;font-family: 'Playfair Display', serif;">Educational Advice and Support</label>
-                                <p>We are providing a progressive educational facilities for academic and non academic organization.</p>
-                                <a href="registerform.html" class="boxed-btn4 ">New User Registration</a>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="main">
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <!-- Links -->
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a  class="nav-link" href="">User List</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="">Add User</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="registerform.jsp">Register User</a>
+            </li>
+            </ul>
+          </nav>
+       
     </div>
+	</div>
     <!-- slider_area_end -->
 
  
@@ -99,11 +99,11 @@
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
-                <div class="row">
+                <div class="row"  style="background:#202020 !important">
                     <div class="col-xl-4 col-md-6 col-lg-3">
                         <div class="footer_widget">
                             <div class="footer_logo">
-                                <a href="index.jsp">
+                                <a href="index.html">
                                    <!-- <img src="img/Logo.png" alt="">-->
                                 </a>
                             </div>
@@ -179,6 +179,7 @@
 
     <!-- JS here -->
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/login.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
 
