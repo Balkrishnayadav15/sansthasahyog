@@ -59,7 +59,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/mail.jar</systemPath>
 		</dependency>
-		<dependency>
+	<dependency>
 			<groupId>ojdbc14.jar</groupId>
 			<artifactId>ojdbc14.jar</artifactId>
 			<version>1.0.0</version>
@@ -67,7 +67,13 @@
 			<systemPath>${basedir}/lib/ojdbc14.jar</systemPath>
 		</dependency>
 		
-		
+		<dependency>
+			<groupId>mysql-connector.jar</groupId>
+			<artifactId>mysql-connector.jar</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/mysql-connector.jar</systemPath>
+		</dependency>
 		<dependency>
 		  <groupId>org.slf4j</groupId>
 		  <artifactId>slf4j-api</artifactId>

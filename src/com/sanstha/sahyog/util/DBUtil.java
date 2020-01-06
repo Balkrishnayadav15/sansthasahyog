@@ -1,5 +1,7 @@
 package com.sanstha.sahyog.util;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -19,5 +21,12 @@ public class DBUtil {
 			throw e;
 		}
 		return oracleDS;
+	}
+	
+	public static Connection mySqlConnection() throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager
+                .getConnection("jdbc:mysql://mysql3000.mochahost.com/sansthas_sahyog", "sansthas_admin", "sansthasahyog");
+		return conn;
 	}
 }

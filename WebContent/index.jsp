@@ -83,7 +83,7 @@
                                 <label style="color: white;font-size: 35px;font-family: 'Playfair Display', serif;">High Quality</label<br>
                                 <label style="color: white;font-size: 30px;font-family: 'Playfair Display', serif;">Educational Advice and Support</label>
                                 <p>We are providing a progressive educational facilities for academic and non academic organization.</p>
-                                <a href="registerform.html" class="boxed-btn4 ">New User Registration</a>
+                                <a href="registerform.jsp" class="boxed-btn4 ">New User Registration</a>
                                
                             </div>
                         </div>

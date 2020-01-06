@@ -189,7 +189,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -o-appearance: none !important;
   -ms-appearance: none !important;
   margin: 0; }
-
+ 
+ .firmHeader {
+  font-family: Montserrat;
+  text-decoration: underline;
+  font-size: 17px !important;
+  text-decoration: underline;
+  color: #F78346;
+  }
 input:focus, select:focus, textarea:focus {
   outline: none;
   box-shadow: none !important;
