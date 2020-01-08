@@ -288,6 +288,13 @@ body {
   margin-bottom: 23px;
   position: relative; }
 
+.updateinput{
+	width: 30%;
+    padding: 4px 0 0 5px;
+    margin: 10px 0 0 20px;
+    display: inline;
+}
+
 input, select {
   display: block;
   width: 100%;

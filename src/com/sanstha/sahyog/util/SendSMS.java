@@ -24,7 +24,7 @@ public class SendSMS {
 		try {
 			// Construct data
 			String apiKey = SansthaConstants.SMSAPIKEY;
-			String message = "&message=" + "This is your message from Sanstha"; //smsDetails.getUserMessage(); OR SansthaConstants.MESSAGE;
+			String message = "&message=" + "Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com"; //smsDetails.getUserMessage(); OR SansthaConstants.MESSAGE;
 			//String sender = "&sender=" + "Govind";  //smsDetails.getMessageSender();
 			String numbers = "&numbers=" + "918087638812"; //smsDetails.getMobNum();
 			

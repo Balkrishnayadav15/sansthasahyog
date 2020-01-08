@@ -15,9 +15,147 @@ $(document).ready(function(){
 
 function userDetails(id){
 	$('#'+id).toggle();
+	$('#details_'+id).show();
+	$('#update_'+id).hide();
 }
 
 function logout(){
 	sessionStorage.clear();
 	window.location.replace("login.html");
+}
+
+function update(id){
+	$('#details_'+id).hide();
+	$('#update_'+id).toggle();
+}
+
+function saveUpdatedDetails(id){
+	var isSubmit = false; 
+	var schoolName = document.getElementById("school_name_"+id).value;
+	var schoolAddress = document.getElementById("school_address_"+id).value;
+	var eYear = document.getElementById("eYear_"+id).value;
+	var userType = document.getElementById("userType_"+id).value;
+	var name = document.getElementById("name_"+id).value;
+	var address = document.getElementById("address_"+id).value;
+	var mobile = document.getElementById("mobile_"+id).value;
+	var dateofbirth = document.getElementById("dateofbirth_"+id).value;
+	var pincode = document.getElementById("pincode_"+id).value;
+	var email = document.getElementById("email_"+id).value;
+	//var gender = $("input[name='gender_'"+id+"]:checked"). val();
+	 if(document.getElementById('male_'+id).checked) {
+		 var gender = "Male";
+	 }else if(document.getElementById('female_'+id).checked){
+		 var gender = "Female";
+	 }
+	 
+	 
+	if(schoolName == null || schoolName == ''){
+		$("#school_name_error_"+id).show();
+		isSubmit = true;
+	}else{
+		$("#school_name_error_"+id).hide();
+		isSubmit = false;
+	}
+	if(schoolAddress == null || schoolAddress == ''){
+		$("#school_address_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#school_address_error_"+id).hide();
+		isSubmit = false;
+	}		
+	if(eYear == null || eYear == ''){
+		$("#eYear_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#eYear_error_"+id).hide();
+		isSubmit = false;
+	}	
+	if(userType == null || userType == ''){
+		$("#userType_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#userType_error_"+id).hide();
+		isSubmit = false;
+	}	
+	
+	if(name == null || name == ''){
+		$("#name_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#name_error_"+id).hide();
+		isSubmit = false;
+	}	
+	if(address == null || address == ''){
+		$("#address_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#address_error_"+id).hide();
+		isSubmit = false;
+	}
+	if(mobile == null || mobile == ''){
+		$("#mobile_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#mobile_error_"+id).hide();
+		isSubmit = false;
+	}
+	/*if(dateofbirth == null || dateofbirth == ''){
+		$("#dateofbirth_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#dateofbirth_error_"+id).hide();
+		isSubmit = false;
+	}*/
+	if(pincode == null || pincode == ''){
+		$("#pincode_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#pincode_error_"+id).hide();
+		isSubmit = false;
+	}
+	if(email == null || email == ''){
+		$("#email_error_"+id).css("display","block");
+		isSubmit = true;
+	}else{
+		$("#email_error_"+id).hide();
+		isSubmit = false;
+	}
+	
+	
+	if(!isSubmit){
+		var dataString = 'schoolName='+ schoolName + '&schoolAddress=' + schoolAddress+ '&eYear=' + eYear+ '&userType=' + userType +
+						'&name=' + name+ '&gender=' + gender+ '&address=' + address+ '&mobile=' + mobile +
+						'&dateofbirth=' + dateofbirth+ '&pincode=' + pincode+ '&email=' + email+  '&currentUser=' + currentUser+'&userId='+id;
+		$("#divLoading").addClass('show');
+		jQuery.ajax({
+			url: "/update",
+			data: dataString,
+			type: "POST",
+			success: function(data){
+				var responseData = JSON.parse(data);
+				if(responseData.VALID=='yes') {
+					window.location.replace("admin");
+				} 
+				$("#divLoading").removeClass('show');
+			},
+			error: function (){}
+		});
+	}
+}
+
+function deleteUser(id){
+	$("#divLoading").addClass('show');
+		jQuery.ajax({
+			url: "/delete",
+			data: "userId="+id,
+			type: "POST",
+			success: function(data){
+				var responseData = JSON.parse(data);
+				if(responseData.VALID=='yes') {
+					window.location.replace("admin");
+				} 
+				$("#divLoading").removeClass('show');
+			},
+			error: function (){}
+		});
 }

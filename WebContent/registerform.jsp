@@ -357,8 +357,8 @@
                                    <!-- <img src="img/Logo.png" alt="">-->
                                 </a>
                             </div>
-                            <p class="footer_text">501 Palhar Nagar, Indore, M.P<br>
-                                +91 9999999999<br>
+                           <p class="footer_text">416 Bhagirath Pura, Indore, M.P<br>
+                                8109033456, 9827016480, 9977866588<br>
                                 <a class="domain" href="#">vijay.dubey@sansthasahyog.com</a></p>
                             <div class="socail_links">
                                 <ul>

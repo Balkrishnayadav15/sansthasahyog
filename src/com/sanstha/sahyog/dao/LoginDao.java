@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
@@ -16,11 +17,14 @@ public class LoginDao {
 	 public boolean isValidUser(String userId, String password) {
 		    Connection conn=null;
 	        PreparedStatement stmt=null;
-	        String query = "select * from `user` WHERE `user-id`=? and `password` = ?";
-	       // DAOServices services = DAOUtil.getServices();
+	        //Mysql query
+	        //String query = "select * from `user` WHERE `user-id`=? and `password` = ?";
+	        
+	        //Oracle query
+            String query = "select * from cspuser where user_id=? and password = ?";
 	        try{
-	           // conn = services.borrowConnection();
-	           conn = DBUtil.mySqlConnection();
+	           // 
+	           conn = DBUtil.getConnection();
        		   stmt= conn.prepareStatement(query);
 
 	            stmt.setString(1, userId);
@@ -32,13 +36,14 @@ public class LoginDao {
 
 	        }catch(Exception e) {
 	        	e.printStackTrace();
-	        } /*finally  {
-	            try {
-	                ConnectionUtil.closeQuietly(stmt);
-	            } finally {
-	                services.returnConnection(conn);
-	            }
-	        }*/
+	        } finally  {
+		           try {
+					stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+	        }
 	        return false;
 	 } 
 	 

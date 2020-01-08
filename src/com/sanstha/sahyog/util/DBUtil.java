@@ -6,10 +6,49 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import com.sanstha.sahyog.ca.fea.daoservices.DAOServices;
+import com.sanstha.sahyog.dao.DAOUtil;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 public class DBUtil {
 
+	public static Connection getOracleConnection() throws SQLException {
+		DAOServices services = null;
+		try {
+			
+			services = DAOUtil.getServices();
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return services.borrowConnection();
+	}
+	
+	public static Connection getMySqlConnection() throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager
+                .getConnection("jdbc:mysql://mysql3000.mochahost.com/sansthas_sahyog", "sansthas_admin", "sansthasahyog");
+		return conn;
+	}
+	
+	public static Connection getConnection() throws SQLException, ClassNotFoundException {
+		Connection conn = null;
+		
+		//Get Oracle connection
+		conn = getOracleConnection();
+		
+		//Get mysql connection
+		//conn = getMySqlConnection();
+				
+		return conn;
+		
+	}
+	
+	public static void closeConnection() {
+		
+	}
+	
 	public static DataSource getDataSource() throws SQLException {
 		OracleDataSource oracleDS = null;
 		try {
@@ -21,12 +60,5 @@ public class DBUtil {
 			throw e;
 		}
 		return oracleDS;
-	}
-	
-	public static Connection mySqlConnection() throws SQLException, ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager
-                .getConnection("jdbc:mysql://mysql3000.mochahost.com/sansthas_sahyog", "sansthas_admin", "sansthasahyog");
-		return conn;
 	}
 }

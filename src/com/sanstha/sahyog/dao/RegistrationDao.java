@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,58 @@ import com.sanstha.sahyog.model.User;
 import com.sanstha.sahyog.util.DBUtil;
 
 public class RegistrationDao {
+	
+	public User updateUserDetails(User user) {
+		
+	 	Connection conn=null;
+        PreparedStatement stmt=null;
+        try {
+        	conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement(generateUpdate(user));
+           
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getUserType());
+            stmt.setString(3, user.getGender());
+            stmt.setString(4, user.getAddress());
+            stmt.setString(5, user.getMobile());
+            stmt.setString(6, user.getDateOfBirth());
+            stmt.setString(7, user.getPincode());
+            stmt.setString(8, user.getEmail());
+            stmt.setString(9,user.getSchoolName() );
+            stmt.setString(10,user.getSchoolAddress() );
+            stmt.setString(11,user.geteYear() );
+            stmt.setString(12,user.getUpdatedBy());
+            stmt.setLong(13, user.getRegisterId());
+            int row = stmt.executeUpdate();
+            if(row == 1) {
+            	return user;
+            }
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+	return null;
+}
+	private String generateUpdate(User user) {
+		return "UPDATE Registration SET  Name = ?, user_type = ?,gender = ?,Residential_Address = ?,Mobile_number = ?,Date_of_birth = ?,Pincode = ?,Email_id = ?," +
+				 "Institue_name = ?,Institue_address = ?,Established_year = ?,MODIFIED_BY=? WHERE REGISTRATION_ID = ?";
+		
+		
+		
+	}
 
 	public User saveUserDetails(User user) {
 		
 		 	Connection conn=null;
 	        PreparedStatement stmt=null;
-	        DAOServices services = DAOUtil.getServices();
-	       // try {
 	        try {
-	            //conn = services.borrowConnection();
-	        	 conn = DBUtil.mySqlConnection();
+	        	conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(generateInsert(user));
 	            stmt.setLong(1, user.getRegisterId());
 	            stmt.setString(2, user.getName());
@@ -45,21 +88,16 @@ public class RegistrationDao {
 	            }
 	        }catch(Exception e) {
 	        	e.printStackTrace();
-	        } /*finally  {
-	            try {
-	                ConnectionUtil.closeQuietly(stmt);
-	            } finally {
-	                services.returnConnection(conn);
-	            }
-	        }*/
+	        }finally  {
+		           try {
+					stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+	        }
 		return null;
 	}
-	
-	
-	
-	
-	
-	
 	
 	private String generateInsert(User user) {
 		return "INSERT INTO Registration (REGISTRATION_ID, Name, user_type,gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees,"
@@ -72,12 +110,9 @@ public class RegistrationDao {
 		long nextRegNum = 0;
 		Connection conn=null;
         PreparedStatement stmt=null;
-        DAOServices services = DAOUtil.getServices();
         String query = "select max(REGISTRATION_ID) from Registration";
-        //try {
         try {
-	        	 conn = DBUtil.mySqlConnection();
-	           
+	        	 conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(query);
 	            ResultSet rs = stmt.executeQuery();
 	            while(rs.next()) {
@@ -86,13 +121,14 @@ public class RegistrationDao {
 
         }catch(Exception e) {
         	throw e;
-        } /*finally  {
-            try {
-                ConnectionUtil.closeQuietly(stmt);
-            } finally {
-                services.returnConnection(conn);
-            }
-        }*/
+        } finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+     }
         return nextRegNum+1;
 	}
 	
@@ -100,15 +136,13 @@ public class RegistrationDao {
 		long nextRegNum = 0;
 		Connection conn=null;
         PreparedStatement stmt=null;
-        DAOServices services = DAOUtil.getServices();
         List<User> userList = new ArrayList<User>();
         User user = null;
         String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
         		"CREATED_BY from Registration order by name asc ";
      
         try  {
-            //conn = services.borrowConnection();
-        	 conn = DBUtil.mySqlConnection();
+        	 conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
@@ -118,14 +152,39 @@ public class RegistrationDao {
 			}
         }catch(Exception e) {
         	throw e;
-        } /*finally  {
-            try {
-                ConnectionUtil.closeQuietly(stmt);
-            } finally {
-                services.returnConnection(conn);
-            }
-        }*/
+        } finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+     }
         return userList;
+	}
+	public boolean deleteUserDetails(long userId) {
+		Connection conn=null;
+        PreparedStatement stmt=null;
+        try {
+        	conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement("delete from Registration where REGISTRATION_ID = ?");
+            stmt.setLong(1, userId);
+            
+            int row = stmt.executeUpdate();
+            if(row == 1) {
+            	return true;
+            }
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+	return false;
 	}
 	
 }
