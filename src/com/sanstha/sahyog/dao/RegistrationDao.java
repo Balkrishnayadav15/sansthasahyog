@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sanstha.sahyog.ca.fea.daoservices.DAOServices;
 import com.sanstha.sahyog.ca.fea.daoservices.util.ConnectionUtil;
@@ -82,6 +84,7 @@ public class RegistrationDao {
 	            stmt.setString(12,user.getSchoolAddress() );
 	            stmt.setString(13,user.geteYear() );
 	            stmt.setString(14,user.getCreatedBy());
+	            stmt.setString(15, "No");
 	            int row = stmt.executeUpdate();
 	            if(row == 1) {
 	            	return user;
@@ -101,8 +104,8 @@ public class RegistrationDao {
 	
 	private String generateInsert(User user) {
 		return "INSERT INTO Registration (REGISTRATION_ID, Name, user_type,gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees,"
-				+ "Institue_name,Institue_address,Established_year,CREATED_BY) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "Institue_name,Institue_address,Established_year,CREATED_BY,SMS_SEND) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 	}
 	
@@ -139,7 +142,7 @@ public class RegistrationDao {
         List<User> userList = new ArrayList<User>();
         User user = null;
         String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
-        		"CREATED_BY from Registration order by name asc ";
+        		" CREATED_BY,sms_send from Registration order by REGISTRATION_ID asc ";
      
         try  {
         	 conn = DBUtil.getConnection();
@@ -147,7 +150,7 @@ public class RegistrationDao {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
             	user = new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null);
+            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15));
             	userList.add(user);
 			}
         }catch(Exception e) {
@@ -187,4 +190,91 @@ public class RegistrationDao {
 	return false;
 	}
 	
+	public boolean updateSmsStatus(long userId) {
+		Connection conn=null;
+        PreparedStatement stmt=null;
+        try {
+        	conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement("UPDATE Registration SET  sms_send = ? where REGISTRATION_ID = ?");
+            stmt.setString(1, "Yes");
+            stmt.setLong(2, userId);
+            
+            int row = stmt.executeUpdate();
+            if(row == 1) {
+            	return true;
+            }
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+        return false;
+	}
+	public boolean saveAdminDetails(String user, String password, String userType) {
+		
+	 	Connection conn=null;
+        PreparedStatement stmt=null;
+        try {
+        	conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement("INSERT INTO cspuser (user_id,EMAIL_ID, password,USER_TYPE,FIRST_NAME,LAST_NAME) VALUES (?,?,?,?,?,?)");
+            stmt.setString(1, user);
+            stmt.setString(2, user);
+            stmt.setString(3, password);
+            stmt.setString(4, userType);
+            stmt.setString(5, user);
+            stmt.setString(6, user);
+            
+            int row = stmt.executeUpdate();
+            if(row == 1) {
+            	return true;
+            }
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+	return false;
+}
+
+public List<User> getAllAdminUser() throws Exception{
+	Connection conn=null;
+    PreparedStatement stmt=null;
+    List<User> adminUser = new ArrayList<User>();
+    User user = null;
+    String query = "select user,user_type,password from cspuser";
+ 
+    try  {
+    	 conn = DBUtil.getConnection();
+        stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()) {
+        	user = new User();
+        	user.setName(rs.getString(1));
+        	user.setUserType(rs.getString(2));
+        	user.setPassword(rs.getString(3));
+        	adminUser.add(user);
+		}
+    }catch(Exception e) {
+    	throw e;
+    } finally  {
+           try {
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+ }
+    return adminUser;
+}
+
 }

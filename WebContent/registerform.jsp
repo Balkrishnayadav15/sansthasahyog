@@ -77,6 +77,7 @@
     <!-- header-end -->
 
     <!-- slider_area_start -->
+     <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a><div>
 	<div class="main">
     <div class="container">
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -86,13 +87,17 @@
                           <a  class="nav-link" href="admin">User List</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="">Add User</a>
+                          <a class="nav-link" href="">Admin User</a>
                       </li>
                     </ul>
                 </nav>
        <div id="success_user_div" style="display:none;margin-top:20px;margin-botton:20px;height:500px">
        	<span id = "success_user"></span>
        	 <button type="submit" id="addNewUserButton">Click here to add new User</button>
+       	 <span id = "notification_msg"></span>
+       	 <button id="sendNotification" onclick="sendMessage()">Send Message</button>
+       	 <span id = "sms_send_success" style="display:none;">Registration message send successful</span>
+       	 <span id = "sms_send_failure" style="display:none;">Message sending failed. Please contact your administer.</span>
        </div>
        <div class="signup-content" id="signup-content">
                 <div class="signup-img">
@@ -334,7 +339,6 @@
 							 </div>
                         </div>
                         <div class="form-submit">
-                            <input type="button" value="Reset All" class="submit" name="reset" id="reset" />
                             <input type="button" value="Submit Form" class="submit" name="submit" id="submit" />
                         </div>
                     </form>

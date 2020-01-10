@@ -1,7 +1,13 @@
 var currentUser = sessionStorage.getItem("LOGGED_IN_USER");
+var currentUserType = sessionStorage.getItem("USER_TYPE");
 
 $(document).ready(function(){
 	$("#divLoading").addClass('show');
+	if(currentUserType == 'Admin'){
+		$("#adminUser").show();
+	}else{
+		$("#adminUser").hide();
+	}
 	$.get('/authenticate?currentUser='+currentUser,
 			function (data) {
 				var responseData = JSON.parse(data);
@@ -137,6 +143,7 @@ $("#submit").click(function(){
 					     '&name=' + name+ '&gender=' + gender+ '&address=' + address+ '&mobile=' + mobile +
 					     '&dateofbirth=' + dateofbirth+ '&pincode=' + pincode+ '&email=' + email+ '&registerFees=' + registerFees+ '&currentUser=' + currentUser;
 	     $("#divLoading").addClass('show');
+	     
 	     jQuery.ajax({
 	         url: "/register",
 	         data: dataString,
@@ -146,12 +153,14 @@ $("#submit").click(function(){
 				 if(responseData.VALID=='yes') {
 						 $("#signup-content").hide();
 			        	 $("#success_user_div").show();
-			        	 var successText = "<h2 style='color: #62d562'> User "+responseData.USER.name+" with Registration number "+responseData.USER.registerId + " saved successfully.";
+			        	 var successText = "<h2 style='color: #62d562'> User "+responseData.USER.name+" with Registration number "+responseData.USER.registerId + " saved successfully.</h2>";
+			        	 var notification_msg =  "<br><br><br><p class='sendMsg' style='background-color: antiquewhite;width: 43%;'>Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com</p>";
+			        	 $("#notification_msg").html(notification_msg);
 			        	 $("#success_user").html(successText);
 			        	 $("#divLoading").removeClass('show');
+			        	 sessionStorage.setItem("REG_USER_NAME",responseData.USER.name);
+			        	 sessionStorage.setItem("REG_USER_ID",responseData.USER.registerId);
 				 } 
-	        
-	        	 
 	         },
 	         error: function (){}
 	     });
@@ -161,4 +170,28 @@ $("#submit").click(function(){
 function logout(){
 	sessionStorage.clear();
 	window.location.replace("login.html");
+}
+
+function sendMessage(){
+	var userId = sessionStorage.getItem("REG_USER_NAME");
+	var userName = sessionStorage.getItem("REG_USER_ID");
+	 jQuery.ajax({
+         url: "/sendsms",
+         data: "userId="+userId+"&userName"+userName,
+         type: "POST",
+         success: function(data){
+        	 var responseData = JSON.parse(data);
+			 if(responseData.VALID=='yes') {
+		        	 $("#divLoading").removeClass('show');
+		        	 $("#sms_send_failure").hide();
+		        	 $("#sms_send_success").show();
+		        	 sessionStorage.removeItem("REG_USER_NAME");
+		        	 sessionStorage.removeItem("REG_USER_ID");
+			 }else{
+				 $("#sms_send_failure").show();
+				 $("#sms_send_success").hide();
+			 }
+         },
+         error: function (){}
+     });
 }

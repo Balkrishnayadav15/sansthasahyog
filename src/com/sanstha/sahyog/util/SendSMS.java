@@ -19,14 +19,14 @@ public class SendSMS {
 		
 	}
 	
-	public String sendMessage(SmsModel smsDetails){
+	public boolean sendMessage(SmsModel smsDetails){
 		
 		try {
 			// Construct data
 			String apiKey = SansthaConstants.SMSAPIKEY;
-			String message = "&message=" + "Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com"; //smsDetails.getUserMessage(); OR SansthaConstants.MESSAGE;
-			//String sender = "&sender=" + "Govind";  //smsDetails.getMessageSender();
-			String numbers = "&numbers=" + "918087638812"; //smsDetails.getMobNum();
+			String message = "&message="+"Thank you Vijay Dubey for Registring yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site : www.sasnthasahyog.com";//smsDetails.getUserMessage();
+			//String sender = "&sender=" + "SansthaSahyog";  //smsDetails.getMessageSender();
+			String numbers = "&numbers=" + "919977866588"; //smsDetails.getMobNum();
 			
 			// Send data
 			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
@@ -45,10 +45,10 @@ public class SendSMS {
 			}
 			rd.close();
 			System.out.println("-->rest-->"+ stringBuffer.toString());
-			return stringBuffer.toString();
+			return true;
 		} catch (Exception e) {
 			System.out.println("Error SMS "+e);
-			return "Error "+e;
+			return false;
 		}
 		
 	}

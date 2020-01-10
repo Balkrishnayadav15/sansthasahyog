@@ -5,14 +5,16 @@ $(document).ready(function(){
             $.get('/authenticate?currentUser='+currentUser,
                     function (data) {
                         var responseData = JSON.parse(data);
-                        if(responseData.VALID=='yes') {
-                            window.location.replace("admin");
-                        }
+                        if(responseData.VALID=='no') {
+        					window.location.replace("login.html");
+        				}
                         $("#divLoading").removeClass('show');
             });
-	$("#login").click(function(){
+	$("#add_admin").click(function(){
 		var userId = $("#userId").val();
 		var password = $("#password").val();
+		var userType = document.getElementById("userType").value;
+		var confirm_password = $("#confirm_password").val();
 		 var isSubmit = false; 
 //		Checking for blank fields.
 		if( userId ==''){
@@ -29,23 +31,40 @@ $(document).ready(function(){
 			$("#password_error").hide();
 			isSubmit = false;
 		}
-
+		if( confirm_password ==''){
+			$("#confirm_password_empty_error").show();
+			$("#confirm_password_error").hide();
+			isSubmit = true;
+		}else{
+			if(password != confirm_password){
+				$("#confirm_password_error").show();
+				isSubmit = true;
+			}else{
+				$("#confirm_password_empty_error").hide();
+				$("#confirm_password_error").hide();
+				isSubmit = false;
+			}
+		}
+		 if(userType == null || userType == '0'){
+			 $("#userType_error").css("display","block");
+			 isSubmit = true;
+		 }else{
+			 $("#userType_error").hide();
+			 isSubmit = false;
+		 }	
 		
 		if(!isSubmit){
 			$("#divLoading").addClass('show');
-			$.post("/login",{ userId: userId, password:password},
+			$.post("/addAdmin",{ userId: userId, password:password,userType:userType},
 					function(data) {
 						var responseData = JSON.parse(data);
 						if(responseData.VALID=='yes') {
-							sessionStorage.setItem("LOGGED_IN_USER", userId);
-							sessionStorage.setItem("USER_TYPE",responseData.userType);
 							$("#divLoading").removeClass('show');
 							$("#login_error").hide();
-							window.location.replace("admin");
+							window.location.replace("getAllAdmin");
 						}else if(responseData.VALID=='no'){
 							$("#divLoading").removeClass('show');
 							$("#login_error").show();
-							sessionStorage.clear();
 						} 
 			});
 		}

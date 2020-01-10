@@ -14,14 +14,14 @@ import com.sanstha.sahyog.util.DBUtil;
 
 public class LoginDao {
 
-	 public boolean isValidUser(String userId, String password) {
+	 public String isValidUser(String userId, String password) {
 		    Connection conn=null;
 	        PreparedStatement stmt=null;
 	        //Mysql query
 	        //String query = "select * from `user` WHERE `user-id`=? and `password` = ?";
 	        
 	        //Oracle query
-            String query = "select * from cspuser where user_id=? and password = ?";
+            String query = "select user_type from cspuser where user_id=? and password = ?";
 	        try{
 	           // 
 	           conn = DBUtil.getConnection();
@@ -29,9 +29,9 @@ public class LoginDao {
 
 	            stmt.setString(1, userId);
 	            stmt.setString(2, password);
-	            ResultSet bundleRs = stmt.executeQuery();
-	            if(bundleRs.next()) {
-	            	return true;
+	            ResultSet rs = stmt.executeQuery();
+	            if(rs.next()) {
+	            	return rs.getString("user_type");
 				}
 
 	        }catch(Exception e) {
@@ -44,7 +44,7 @@ public class LoginDao {
 					e.printStackTrace();
 				}
 	        }
-	        return false;
+	        return null;
 	 } 
 	 
 }

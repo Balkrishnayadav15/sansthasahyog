@@ -19,8 +19,15 @@ public class User {
 	public String updatedBy;
 	public String createdDate;
 	public String updatedDate;
+	public String smsSend;
+	public String password;
 	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getSchoolName() {
 		return schoolName;
 	}
@@ -124,9 +131,16 @@ public class User {
 	public void setUpdatedDate(String updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+	
+	public String getSmsSend() {
+		return smsSend;
+	}
+	public void setSmsSend(String smsSend) {
+		this.smsSend = smsSend;
+	}
 	public User(long registerId, String schoolName, String schoolAddress, String eYear, String userType, String name,
 			String gender, String address, String mobile, String dateOfBirth, String pincode, String email,
-			String registerFees, String createdBy, String updatedBy, String createdDate, String updatedDate) {
+			String registerFees, String createdBy, String updatedBy, String createdDate, String updatedDate,String smsSend) {
 		super();
 		this.registerId = registerId;
 		if(schoolName != null) { this.schoolName = schoolName; }else { this.schoolName = "";}
@@ -145,6 +159,7 @@ public class User {
 		if(updatedBy != null) {this.updatedBy = updatedBy;}else { this.updatedBy = "";}
 		if(createdDate != null) {this.createdDate = createdDate;}else { this.createdDate = "";}
 		if(updatedDate != null) {this.updatedDate = updatedDate;}else { this.updatedDate = "";}
+		if(smsSend != null) {this.smsSend = updatedDate;}else { this.smsSend = "";}
 	}
 	
 	public User() {}

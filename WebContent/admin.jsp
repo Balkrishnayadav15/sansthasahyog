@@ -22,7 +22,11 @@
      <link rel="stylesheet" href="css/register.css">
      <link rel="stylesheet" href="css/loader.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-     
+     <style>
+     *, ::after, ::before {
+    box-sizing: unset !important;
+}
+     </style>
 </head>
 
 <body>
@@ -79,6 +83,7 @@
     <!-- header-end -->
 
     <!-- slider_area_start -->
+ <!--     <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a><div> -->
 	<div class="main">
     <div class="container" style="padding-bottom:50px">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -87,8 +92,8 @@
               <li class="nav-item">
                   <a  class="nav-link" href="admin">User List</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="">Add User</a>
+              <li class="nav-item" id="adminUser">
+                  <a class="nav-link" href="getAllAdmin">Admin User</a>
               </li>
               <li class="nav-item">
                     <a class="nav-link" href="registerform.jsp" >Register User</a>
@@ -109,8 +114,8 @@
 					          <tr>
 					            <th>Registration Id</th>
 					            <th>Name</th>
-					            <th>Email</th>
-					            <th>Mobile number</th>
+					            <th class="hideDTEle">Email</th>
+					            <th class="hideDTEle">Mobile number</th>
 					          </tr>
 					        </thead>
 					        <tbody>
@@ -118,11 +123,12 @@
 					          <tr>
 					            <td><%=user.getRegisterId() %></td>
 					            <td><%=user.getName() %></td>
-					            <td><%=user.getEmail() %></td>
-					            <td><%=user.getMobile() %></td>
+					            <td class="hideDTEle"><%=user.getEmail() %></td>
+					            <td class="hideDTEle"><%=user.getMobile() %></td>
 					            <td><!-- <button (click)="deleteUser(user.id,user)" class="btn btn-danger">Delete</button>
 					                <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button> -->
-					                <button onclick="userDetails('<%=user.getRegisterId()%>')" class="btn btn-info" style="margin-left: 10px">Details</button>
+					                <button onclick="userDetails('<%=user.getRegisterId()%>')" class="btn btn-info hideDTEle" style="margin-left: 10px">Details</button>
+					           		<button onclick="userDetails('<%=user.getRegisterId()%>')" class="btn-xs btn-info" style="margin-left: 10px">Details</button>
 					            </td>
 					          </tr>
 					          <tr id="<%=user.getRegisterId() %>" style="display:none">
@@ -132,7 +138,7 @@
 										<button onclick="deleteUser('<%=user.getRegisterId()%>')" class="btn btn-danger" style="margin-left: 10px;float: right;">Delete</button>
 								    </div>
 								    <div id="details_<%=user.getRegisterId() %>">
-						          	 	 <div>
+						          	 	 <div style="margin-top: 42px;">
 										    <span><b>Name: </b></span> <span><%=user.getName() %></span>
 										  </div>
 										  <div>
@@ -168,8 +174,11 @@
 										   <div>
 										    <span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
 										  </div>
+										  <div>
+										  	<span><b>SMS Status: </b></span><span><%=user.getSmsSend() %></span><br>
+										  </div>
 									  </div> 
-									  <div id="update_<%=user.getRegisterId() %>" style="display:none">
+									  <div id="update_<%=user.getRegisterId() %>" style="display:none;margin-top: 42px;">
 											  	<span><b>Name: </b></span><input type="text" class="updateinput" value="<%=user.getName() %>" name="name_<%=user.getRegisterId() %>" id="name_<%=user.getRegisterId() %>"><br>
 											  	 <span id="name_error_<%=user.getRegisterId() %>" style="color:red;display:none;">Name can not be empty.</span>
 											  	 <span><b>Address: </b></span><input type="text" class="updateinput" value="<%=user.getAddress() %>" name="address_<%=user.getRegisterId() %>"  id="address_<%=user.getRegisterId() %>"><br>
@@ -179,9 +188,9 @@
 											  	<span><b>Mobile Number: </b></span><input type="text" class="updateinput" value="<%=user.getMobile() %>" name="mobile_<%=user.getRegisterId() %>" id="mobile_<%=user.getRegisterId() %>"><br>
 												 <span id="mobile_error_<%=user.getRegisterId() %>" style="color:red;display:none;">Name can not be empty.</span>
 												 <span><b>Gender: </b></span><br>
-												<input type="radio" style="visibility: visible;width: 10%;display: inline;margin: 6px;" name="gender_<%=user.getRegisterId() %>" id="male_<%=user.getRegisterId() %>" value="Male" <%if((user.getGender().equals("Male"))){%> checked <%}%>>
+												<input type="radio" style="visibility: visible;width: 10%;display: inline;margin: 6px;" class="radio-gender" name="gender_<%=user.getRegisterId() %>" id="male_<%=user.getRegisterId() %>" value="Male" <%if((user.getGender().equals("Male"))){%> checked <%}%>>
  												Male<br>
-  												 <input type="radio" style="visibility: visible;width: 10%;display: inline;margin: 6px;"  name="gender_<%=user.getRegisterId() %>" id="female_<%=user.getRegisterId() %>" value="Female" <%if((user.getGender().equals("Female"))){%> checked <%}%>>
+  												 <input type="radio" style="visibility: visible;width: 10%;display: inline;margin: 6px;"  class="radio-gender" name="gender_<%=user.getRegisterId() %>" id="female_<%=user.getRegisterId() %>" value="Female" <%if((user.getGender().equals("Female"))){%> checked <%}%>>
   												Female
   												<br>
 											  	<span><b>User Type: </b></span><select name="userType_<%=user.getRegisterId() %>" id="userType_<%=user.getRegisterId() %>" class="updateinput">
@@ -315,7 +324,7 @@
 																										<option value="1906" <%if((user.geteYear().equals("1906"))){%> selected <%}%> >1906</option>
 																										<option value="1905" <%if((user.geteYear().equals("1905"))){%> selected <%}%> >1905</option>
 																									</select><br>
-												<span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
+												
 												<button onclick="saveUpdatedDetails('<%=user.getRegisterId()%>')" class="btn btn-dark" style="margin-left: 10px;float: right;">Save details</button>
 
 									  </div>

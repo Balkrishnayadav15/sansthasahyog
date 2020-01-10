@@ -26,6 +26,9 @@ body {
   font-style: normal;
 }
 
+ .btn-xs{
+  	display:none;
+  }
 /* line 14, C:/Users/SPN Graphics/Desktop/CL September/211 Lawyer/HTML/scss/theme-default.scss */
 .img {
   max-width: 100%;

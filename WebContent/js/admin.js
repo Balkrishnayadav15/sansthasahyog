@@ -1,7 +1,13 @@
 var currentUser = sessionStorage.getItem("LOGGED_IN_USER");
+var currentUserType = sessionStorage.getItem("USER_TYPE");
 
 $(document).ready(function(){
 	$("#divLoading").addClass('show');
+	/*if(currentUserType == 'Admin'){
+		$("#adminUser").show();
+	}else{
+		$("#adminUser").hide();
+	}*/
 	$.get('/authenticate?currentUser='+currentUser,
 			function (data) {
 				var responseData = JSON.parse(data);
@@ -147,7 +153,7 @@ function deleteUser(id){
 	$("#divLoading").addClass('show');
 		jQuery.ajax({
 			url: "/delete",
-			data: "userId="+id,
+			data: "userId="+id+'&currentUser=' + currentUser,
 			type: "POST",
 			success: function(data){
 				var responseData = JSON.parse(data);

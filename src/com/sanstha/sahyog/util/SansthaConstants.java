@@ -14,7 +14,8 @@ public class SansthaConstants {
 		  }
 		 
 		  
-		  public static final String SMSAPIKEY = "apikey=" + "aRCD/rjq5Io-Dhw6pKnIJJXdmqDXYu6fQtv1ngvO54";
+		 // public static final String SMSAPIKEY = "apikey=" + "lpXhe48AzEg-PCJFsjgurcu6EA1T96iyhyYbRncKQt";
+		  public static final String SMSAPIKEY = "apikey=" + "lpXhe48AzEg-Q5zjQ6An30ARGBEOaVk1nQaSsjHzPL";
 		  public static final String MESSAGE = " TEST MESSAGE"; // const in case if the message is FIXED like // REG SUCCESSFULL THANKS... 
 
 	
