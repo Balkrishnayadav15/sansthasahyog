@@ -36,10 +36,10 @@ public class DBUtil {
 		Connection conn = null;
 		
 		//Get Oracle connection
-		conn = getOracleConnection();
+		//conn = getOracleConnection();
 		
 		//Get mysql connection
-		//conn = getMySqlConnection();
+		conn = getMySqlConnection();
 				
 		return conn;
 		

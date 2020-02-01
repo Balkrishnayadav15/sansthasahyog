@@ -221,7 +221,7 @@ public class RegistrationDao {
         PreparedStatement stmt=null;
         try {
         	conn = DBUtil.getConnection();
-            stmt = conn.prepareStatement("INSERT INTO cspuser (user_id,EMAIL_ID, password,USER_TYPE,FIRST_NAME,LAST_NAME) VALUES (?,?,?,?,?,?)");
+            stmt = conn.prepareStatement("INSERT INTO user (user_id,EMAIL_ID, password,USER_TYPE,FIRST_NAME,LAST_NAME) VALUES (?,?,?,?,?,?)");
             stmt.setString(1, user);
             stmt.setString(2, user);
             stmt.setString(3, password);
@@ -251,7 +251,7 @@ public List<User> getAllAdminUser() throws Exception{
     PreparedStatement stmt=null;
     List<User> adminUser = new ArrayList<User>();
     User user = null;
-    String query = "select user,user_type,password from cspuser";
+    String query = "select user_id,user_type,password from user";
  
     try  {
     	 conn = DBUtil.getConnection();

@@ -18,10 +18,10 @@ public class LoginDao {
 		    Connection conn=null;
 	        PreparedStatement stmt=null;
 	        //Mysql query
-	        //String query = "select * from `user` WHERE `user-id`=? and `password` = ?";
+	        String query = "select user_type from `user` WHERE `user_id`=? and `password` = ?";
 	        
 	        //Oracle query
-            String query = "select user_type from cspuser where user_id=? and password = ?";
+            //String query = "select user_type from cspuser where user_id=? and password = ?";
 	        try{
 	           // 
 	           conn = DBUtil.getConnection();

@@ -461,7 +461,11 @@ select {
 	margin-left: 52px !important
 }
 .logout_class{
-	display:block;
+	display:block !important;
+text-align: right;
+}
+.register-form{
+padding: 0 0 50px 0 !important;
 }
 .sendMsg{
 	width: 100%;
@@ -488,12 +492,16 @@ select {
     .btn-xs {
     display: block;
 }
+.register-form{
+padding: 0 0 50px 0 !important;
+}
 .sendMsg{
 	width: 100%;
     padding: 12px;
 }
 .logout_class{
-	display:block;
+	display:block !important;
+text-align: right;
 }
 .radio-gender{
 	margin-left: 52px !important
@@ -505,6 +513,9 @@ select {
 	 .hideDTEle{
   	display:none;
   }
+  .register-form{
+padding: 0 0 50px 0 !important;
+}
   .btn-xs {
     display: block;
 }
@@ -516,7 +527,8 @@ select {
 	margin-left: 52px !important
 }
 .logout_class{
-	display:block;
+	display:block !important;
+text-align: right;
 }
   .form-row {
     flex-direction: column;
@@ -549,8 +561,12 @@ select {
 	width: 100%;
     padding: 12px;
 }
+.register-form{
+padding: 0 0 50px 0 !important;
+}
 .logout_class{
-	display:block;
+	display:block !important;
+text-align: right;
 }
   .submit {
     width: 100%; }

@@ -77,7 +77,7 @@
     <!-- header-end -->
 
     <!-- slider_area_start -->
-     <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a><div>
+      <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a></div>
 	<div class="main">
     <div class="container">
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

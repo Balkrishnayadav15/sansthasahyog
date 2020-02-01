@@ -154,7 +154,7 @@ $("#submit").click(function(){
 						 $("#signup-content").hide();
 			        	 $("#success_user_div").show();
 			        	 var successText = "<h2 style='color: #62d562'> User "+responseData.USER.name+" with Registration number "+responseData.USER.registerId + " saved successfully.</h2>";
-			        	 var notification_msg =  "<br><br><br><p class='sendMsg' style='background-color: antiquewhite;width: 43%;'>Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com</p>";
+			        	 var notification_msg =  "<br><br><br><p class='sendMsg' style='background-color: antiquewhite;width: 100%;'>Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com</p>";
 			        	 $("#notification_msg").html(notification_msg);
 			        	 $("#success_user").html(successText);
 			        	 $("#divLoading").removeClass('show');
