@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-import com.sanstha.sahyog.ca.fea.daoservices.DAOServices;
-import com.sanstha.sahyog.ca.fea.daoservices.util.ConnectionUtil;
 import com.sanstha.sahyog.util.DBUtil;
 
 public class LoginDao {

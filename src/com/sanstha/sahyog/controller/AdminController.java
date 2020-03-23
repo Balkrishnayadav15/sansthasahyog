@@ -37,8 +37,14 @@ public class AdminController extends HttpServlet {
 		RegistrationDao register= new RegistrationDao();
 	
 		try {
+			//Get all user with completed status
 			List<User> allUser = register.getAllUser();
 			request.setAttribute("ALL_USER", allUser);
+			
+			//Get all user with Pending status
+			List<User> pendingUsers = register.getAllPendingUser();
+			request.setAttribute("PENDING_USER", pendingUsers);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

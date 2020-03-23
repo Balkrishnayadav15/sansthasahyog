@@ -19,10 +19,16 @@ $(document).ready(function(){
 	});
 });
 
-function userDetails(id){
-	$('#'+id).toggle();
-	$('#details_'+id).show();
-	$('#update_'+id).hide();
+function userDetails(id, status){
+	if(status === 'pending'){
+		$('#pending_'+id).toggle();
+		$('#pending_details_'+id).show();
+		//$('#update_'+id).hide();
+	}else{
+		$('#'+id).toggle();
+		$('#details_'+id).show();
+		$('#update_'+id).hide();
+	}
 }
 
 function logout(){
@@ -33,6 +39,27 @@ function logout(){
 function update(id){
 	$('#details_'+id).hide();
 	$('#update_'+id).toggle();
+}
+
+function approve(id){
+
+	var dataString = 'currentUser=' + currentUser+'&userId='+id;
+	
+	$("#divLoading").addClass('show');
+	jQuery.ajax({
+		url: "/approve",
+		data: dataString,
+		type: "POST",
+		success: function(data){
+			var responseData = JSON.parse(data);
+			if(responseData.VALID=='yes') {
+				window.location.replace("admin");
+			} 
+			$("#divLoading").removeClass('show');
+		},
+		error: function (){}
+	});
+
 }
 
 function saveUpdatedDetails(id){
@@ -147,6 +174,23 @@ function saveUpdatedDetails(id){
 			error: function (){}
 		});
 	}
+}
+function download(){
+	var url ="http://www.sansthasahyog.com/downloadUsers";
+	//var url = "http://localhost:8080/downloadUsers";
+	 var getselectVal = [];
+     $.each($("input[name='user']:checked"), function(){
+    	 getselectVal.push($(this).val());
+     });
+    // alert("My favourite sports are: " + getselectVal.join(", "));
+	
+     if(getselectVal.length > 0){
+    	 url = url + "?selectedUser="+getselectVal.join(",");
+    	 $("#error").hide();
+	 	 window.open(url);
+	 }else{
+		 $("#error").show();
+	 }
 }
 
 function deleteUser(id){

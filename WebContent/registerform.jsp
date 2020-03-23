@@ -31,39 +31,30 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center justify-content-between no-gutters">
-                        <div class="col-xl-2 col-lg-2">
+                       <div class="col-xl-3 col-lg-3" style="padding:30px;">
                             <div class="logo-img">
                                 <a href="index.jsp">
                                     <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-xl-7 col-lg-8">
+                        <div class="col-xl-7 col-lg-9">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">home</a></li>
-                                        <li><a href="index.jsp">About</a></li>
-                                        <li><a href="index.jsp">Advertisment Area</a></li>
-                                        
-                                        <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
+                                        <li><a class="active" href="index.jsp">Home</a></li>
+                                         <li><a href="about.html">Our Services</a></li>
+                                          <li><a href="about.html">Media</a></li>
+                                           <li><a href="about.html">Online Serives</a></li>
+                                        <li><a href="about.html">About Us</a></li>                                        
+                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="index.jsp">Photos</a></li>
                                             </ul>
-                                        </li>
-                                        <li><a href="index.jsp">Contact</a></li>
+                                        </li> -->
+                                        <li><a href="contact.html">Contact Us</a></li>
                                     </ul>
                                 </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-2 d-none d-lg-block">
-                            <div class="social_media_links">
-                             <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
-                                <ul>
-                                    <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
-                                    <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
-                                    <li><a href="#"> <i class="fa fa-instagram"></i> </a></li>
-                                </ul>
                             </div>
                         </div>
                         <div class="col-12">
@@ -71,6 +62,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="container" style="background-color:#000">
+	                <div class="row">
+	                  <div class="col-xl-12 col-lg-12 d-none d-lg-block">
+	                            <div class="social_media_links">
+	                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
+	                               
+	                            </div>
+	                        </div>
+	                </div>
+	          </div>
             </div>
         </div>
     </header>

@@ -37,46 +37,48 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center justify-content-between no-gutters">
-                        <div class="col-xl-2 col-lg-2">
+                        <div class="col-xl-3 col-lg-3" style="padding:30px;">
                             <div class="logo-img">
                                 <a href="index.jsp">
                                     <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-xl-7 col-lg-8">
+                        <div class="col-xl-7 col-lg-9">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">home</a></li>
-                                        <li><a href="index.jsp">About</a></li>
-                                        <li><a href="index.jsp">Advertisment Area</a></li>
-                                        
-                                        <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
+                                        <li><a class="active" href="index.jsp">Home</a></li>
+                                         <li><a href="about.html">Our Services</a></li>
+                                          <li><a href="about.html">Media</a></li>
+                                           <li><a href="about.html">Online Serives</a></li>
+                                        <li><a href="about.html">About Us</a></li>                                        
+                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="index.jsp">Photos</a></li>
                                             </ul>
-                                        </li>
-                                        <li><a href="index.jsp">Contact</a></li>
+                                        </li> -->
+                                        <li><a href="contact.html">Contact Us</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-2 d-none d-lg-block">
-                            <div class="social_media_links">
-                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
-                                <ul>
-                                    <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
-                                    <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
-                                    <li><a href="#"> <i class="fa fa-instagram"></i> </a></li>
-                                </ul>
-                            </div>
-                        </div>
+                       
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
                 </div>
+                <div class="container" style="background-color:#000">
+	                <div class="row">
+	                  <div class="col-xl-12 col-lg-12 d-none d-lg-block">
+	                            <div class="social_media_links">
+	                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
+	                               
+	                            </div>
+	                        </div>
+	                </div>
+	          </div>
             </div>
         </div>
     </header>
@@ -97,16 +99,131 @@
               </li>
               <li class="nav-item">
                     <a class="nav-link" href="registerform.jsp" >Register User</a>
-                </li>
+               </li>
+               <li class="nav-item">
+                    <a class="nav-link" href="downloadUser.html" >Download</a>
+               </li>
             </ul>
         </nav>
        <div>
        		<% 
        			List<User> userList = (List<User>) request.getAttribute("ALL_USER");
+       		
+   				List<User> pendingUsers = (List<User>) request.getAttribute("PENDING_USER");
+
        		%>
+       	<!-- Start list of user with pending status -->
+       		<div class="panel panel-primary" id="PendingUList" >
+					    <div class="panel-heading">
+					      <h2 class="adminHeader">Pending User List</h2>
+					    </div>
+					    <div class="panel-body">
+					      <table class="table table-striped">
+					        <thead>
+					          <tr>
+					            <th>Registration Id</th>
+					            <th>Name</th>
+					            <th class="hideDTEle">Email</th>
+					            <th class="hideDTEle">Mobile number</th>
+					          </tr>
+					        </thead>
+					        <tbody>
+					        <% for(User user:pendingUsers){%>
+					          <tr>
+					            <td><%=user.getRegisterId() %></td>
+					            <td><%=user.getName() %></td>
+					            <td class="hideDTEle"><%=user.getEmail() %></td>
+					            <td class="hideDTEle"><%=user.getMobile() %></td>
+					            <td><!-- <button (click)="deleteUser(user.id,user)" class="btn btn-danger">Delete</button>
+					                <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button> -->
+					                <button onclick="userDetails('<%=user.getRegisterId()%>','pending')" class="btn btn-info hideDTEle" style="margin-left: 10px">Details</button>
+					           		<button onclick="userDetails('<%=user.getRegisterId()%>','pending')" class="btn-xs btn-info" style="margin-left: 10px">Details</button>
+					            </td>
+					          </tr>
+					          <tr id="pending_<%=user.getRegisterId() %>" style="display:none">
+					          	<td colspan="5">
+					          		<div>
+								        <button onclick="approve('<%=user.getRegisterId()%>')" class="btn btn-dark" style="margin-left: 10px;float: right;">Approve</button>
+								    </div>
+								    
+								    <!--Start Approve Modal HTML -->
+										<div id="approve_modal" class="modal fade"  tabindex="-1">
+											<div class="modal-dialog modal-confirm">
+												<div class="modal-content">
+													<div class="modal-header">
+														<div class="icon-box">
+															<i class="material-icons">&#xE5CD;</i>
+														</div>				
+														<h4 class="modal-title">Are you sure?</h4>	
+										                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														<p>Do you really want to delete these records? This process cannot be undone.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+														<button type="button" class="btn btn-danger" onclick="approve('<%=user.getRegisterId()%>')" data-dismiss="modal" >Delete</button>
+													</div>
+												</div>
+											</div>
+										</div>  
+								 <!--End Approve Modal HTML -->
+								    
+								    <div id="pending_details_<%=user.getRegisterId() %>">
+						          	 	 <div style="margin-top: 42px;">
+										    <span><b>Name: </b></span> <span><%=user.getName() %></span>
+										  </div>
+										  <div>
+										    <span><b>Address: </b></span> <span><%=user.getAddress() %></span>
+										  </div>
+										  <div>
+										    <span><b>Email Id: </b></span><span><%=user.getEmail() %></span>
+										  </div>  
+										  <div>
+										    <span><b>Mobile Number: </b></span> <span><%=user.getMobile() %></span>
+										  </div> 
+										  <div>
+										    <span><b>Gender: </b></span><span><%=user.getGender() %></span>
+										  </div> 
+										  <div>
+										    <span><b>User Type: </b></span><span><%=user.getUserType() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Date of birth: </b></span><span><%=user.getDateOfBirth() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Pincode: </b></span><span><%=user.getPincode() %></span>
+										  </div>
+										  <div>
+										    <span><b>Institute/Firm Name: </b></span><span><%=user.getSchoolName() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Institute/Firm Addess: </b></span><span><%=user.getSchoolAddress() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Institute/Firm Established Year: </b></span><span><%=user.geteYear() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
+										  </div>
+										  <div>
+										  	<span><b>SMS Status: </b></span><span><%=user.getSmsSend() %></span><br>
+										  </div>
+									  </div> 
+									  
+					          	<td>
+					          </tr>
+					        <% } %>
+					        </tbody>
+					      </table>
+					    </div>
+					</div>
+       		<!-- End list of user with pending status -->
+       		
+       		<!-- Start Completed user registration list -->
 				  <div class="panel panel-primary" >
 					    <div class="panel-heading">
-					      <h2>User List</h2>
+					      <h2 class="adminHeader">User List</h2>
 					    </div>
 					    <div class="panel-body">
 					      <table class="table table-striped">

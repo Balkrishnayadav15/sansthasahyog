@@ -5,9 +5,12 @@ $(document).ready(function(){
 	$("#divLoading").addClass('show');
 	if(currentUserType == 'Admin'){
 		$("#adminUser").show();
+		$("#PendingUList").show();
+		
 	}else{
 		$("#adminUser").hide();
-	}
+		$("#PendingUList").hide();
+                     	}
 	$.get('/authenticate?currentUser='+currentUser,
 			function (data) {
 				var responseData = JSON.parse(data);

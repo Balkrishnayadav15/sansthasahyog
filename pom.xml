@@ -3,12 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.codejava.javaee</groupId>
 	<artifactId>sanstha.sahyog</artifactId>
-	<version>1.9</version>
+	<version>1.8</version>
 	<packaging>war</packaging>
 	<name>Hello World Java EE</name>
 	<description>Learn Java JSP and Servlet</description>
 
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>jsp-api.jar</groupId>
 			<artifactId>jsp-api.jar</artifactId>
@@ -59,20 +70,12 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/mail.jar</systemPath>
 		</dependency>
-	<dependency>
-			<groupId>ojdbc14.jar</groupId>
-			<artifactId>ojdbc14.jar</artifactId>
-			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/ojdbc14.jar</systemPath>
-		</dependency>
+	
 		
 		<dependency>
-			<groupId>mysql-connector.jar</groupId>
-			<artifactId>mysql-connector.jar</artifactId>
-			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/mysql-connector.jar</systemPath>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.12</version>
 		</dependency>
 		<dependency>
 		  <groupId>org.slf4j</groupId>
@@ -113,7 +116,11 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/jackson-databind-2.9.8.jar</systemPath>
 		</dependency>	
-		
+		<dependency>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-source-plugin</artifactId>
+		    <version>2.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
