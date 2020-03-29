@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanstha.sahyog.dao.EnquiryDao;
 import com.sanstha.sahyog.dao.RegistrationDao;
+import com.sanstha.sahyog.model.Enquiry;
 import com.sanstha.sahyog.model.User;
 
 /**
@@ -44,6 +46,12 @@ public class AdminController extends HttpServlet {
 			//Get all user with Pending status
 			List<User> pendingUsers = register.getAllPendingUser();
 			request.setAttribute("PENDING_USER", pendingUsers);
+			
+			//Get all user with Pending status
+			List<User> rejectedUsers = register.getAllRejectedUser();
+			request.setAttribute("REJECTED_USER", rejectedUsers);
+			
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

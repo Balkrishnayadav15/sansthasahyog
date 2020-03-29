@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"  
+    import="java.util.*, com.sanstha.sahyog.model.*"
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,101 +28,31 @@
         <link rel="stylesheet" href="css/all.css">
     
     
-    
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
+<jsp:include page="/home.jsp" />
+<jsp:include page="/bannerImg.jsp" />
 
+<%
+	Map<String,String> news = (Map<String,String>)request.getAttribute("LATESTNEWS");
+%>
 <body style="background-color:#000">
-  
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center justify-content-between no-gutters">
-                        <div class="col-xl-3 col-lg-3" style="padding:30px;">
-                            <div class="logo-img">
-                                <a href="index.jsp">
-                                    <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-9">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-									<ul id="navigation">
-										<li><a class="active" href="index.jsp">Home</a></li>
-										<li><a href="#">Our Services</a>
-											 <ul class="submenu">
-		                                         <li><a href="index.jsp">R & D</a></li>
-		                                         <li><a href="index.jsp">Meeting Desk</a></li>
-		                                         <li><a href="index.jsp">Current Targets</a></li>
-		                                         <li><a href="index.jsp">Career counselling for students</a></li>
-		                                         <li><a href="index.jsp">Teacher Training Seminar</a></li>
-		                                         <li><a href="index.jsp">School Director Seminar</a></li>
-		                                         <li><a href="index.jsp">Inter School Competition</a></li>
-		                                         <li><a href="index.jsp">Social Activities</a></li>
-		                                         <li><a href="index.jsp">Awards and Criteria</a></li>
-		                                         <li><a href="index.jsp">Nomination for Awards</a></li>
-		                                         <li><a href="index.jsp">Achievements</a></li>
-		                                     </ul>
-										</li>
-												
-										<li><a href="#">Media</a>
-										 <ul class="submenu">
-		                                         <li><a href="index.jsp">Media News</a></li>
-		                                 </ul>
-										</li>
-										<li><a href="#">Online Serives</a>
-											<ul class="submenu">
-		                                         <li><a href="about.html">Affiliation Rules</a></li>
-		                                         <li><a href="about.html">RTE Rule Desk</a></li>
-		                                         <li><a href="about.html">Government Education Rules</a></li>
-		                                         <li><a href="about.html">Admin and Helpers</a></li>
-		                                         <li><a href="about.html">Annual Working Report</a></li>
-		                                         <li><a href="about.html">Help Desk</a></li>
-		                                         <li><a href="about.html">Suggestion Desk</a></li>
-		                                         <li><a href="about.html">Achievers</a></li>
-		                                         
-												</ul>
-										</li>
-										<li><a href="#">About Us</a>
-											<ul class="submenu">
-		                                         <li><a href="about.html">History</a></li>
-		                                         <li><a href="index.jsp">Election Rules</a></li>
-		                                         <li><a href="index.jsp">Duties</a></li>
-													<li><a href="index.jsp">Candidates</a></li>
-													<li><a href="index.jsp">Sanstha Management</a></li>
-													<li><a href="index.jsp">Working Area Units and Nodels</a></li>
-													<li><a href="index.jsp">Sanstha Regulations</a></li>
-													<li><a href="about.html">Ongoing Projects</a></li>
-													<li><a href="about.html">Ongoing Events</a></li>
-												</ul>
-										</li>
-										<!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
-		                                            <ul class="submenu">
-		                                                <li><a href="index.jsp">Photos</a></li>
-		                                            </ul>
-		                                        </li> -->
-										<li><a href="#">Contact Us</a>
-											<ul class="submenu">
-		                                         <li><a href="contact.html">Head Office</a></li>
-		                                         <li><a href="contact.html">Working Office</a></li>
-		                                         <li><a href="contact.html">Members</a></li>
-		                                     </ul>
-										</li>
-									</ul>
-								</nav>
-	                            </div>
-	                        </div>
-                        
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
+  <div id="pageLoad" class="modal fade">
+    <div  class="modal-dialog">
+        <div id="gradient" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title pageLoad-header"><%=news.get("header") %></h4>
+            </div>
+            <div class="modal-body" style="min-height: 150px;">
+                <p class="pageLoad-body"><%=news.get("body") %></p>
+               
             </div>
         </div>
-    </header>
+    </div>
+</div>
+ <!-- header-start -->
+     <jsp:include page="header.jsp" /> 
     <!-- header-end -->
   <!--  Start banner part -->
 	<div class="container banner-container">
@@ -138,32 +70,32 @@
 									      <li data-target="#myCarousel" data-slide-to="1"></li>
 									      <li data-target="#myCarousel" data-slide-to="2"></li>
 									    </ol>
-									
-									    <!-- Wrapper for slides -->
 									    <div class="carousel-inner">
+									     <!-- Wrapper for slides -->
+									     
+										<%
+								        	List<Gallery> bnList = (List<Gallery>)request.getAttribute("BANNER_IMG");
+								            if(null != bnList){
+								            	for(int i = 0;i<bnList.size();i++){
+								            		if(i == 0){
+								        %>
 									      <div class="item active">
-									        <img src="img/banner/banner-1.jpg" alt="Los Angeles" style="width:100%;">
+									    <%
+									    	}else{
+								         %>
+								          <div class="item">
+								         <%
+									    	}
+								         %>
+									        <img src="data:image/jpg;base64,<%=bnList.get(i).getBase64Image() %>" alt="Los Angeles" style="width:100%;max-height:410px;">
 									        <div class="carousel-caption">
-										        <a href="registerform.jsp" class="boxed-btn4">Register Now</a>
+										        <a href="#" class="boxed-btn4" data-toggle="modal" data-target="#enquiry_form">Enquiry Form</a>
 												<a href="login.html" class="boxed-btn4">Login</a>
 										     </div>
 									      </div>
-									
-									      <div class="item">
-									        <img src="img/banner/banner-2.jpg" alt="Chicago" style="width:100%;">
-									         <div class="carousel-caption">
-										        <a href="registerform.jsp" class="boxed-btn4">Register Now</a>
-												<a href="login.html" class="boxed-btn4">Login</a>
-										     </div>
-									      </div>
-									    
-									      <div class="item">
-									        <img src="img/banner/banner-3.jpg" alt="New york" style="width:100%;">
-									         <div class="carousel-caption">
-										        <a href="registerform.jsp" class="boxed-btn4">Register Now</a>
-												<a href="login.html" class="boxed-btn4">Login</a>
-										     </div>
-									      </div>
+										<%
+								           }}
+										%>
 									    </div>
 									
 									    <!-- Left and right controls -->
@@ -176,76 +108,55 @@
 									      <span class="sr-only">Next</span>
 									    </a>
 									  </div>
-					    <!-- <div id="slides-shop" class="cover-slides">
-					        <ul class="slides-container">
-					            <li class="text-center">
-					                <img src="img/banner/banner-1.jpg" alt="">
-					                <div class="container">
-					                    <div class="row">
-					                        <div class="col-md-12">
-					                            <h1 class="m-b-20"><strong>Welcome To <br>Orange Edu Resolution</strong></h1>
-					                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-					                            <p><a class="btn hvr-hover" href="#" data-toggle="modal" data-target="#enquiry_form">Enquiry Now</a></p>
-					                        </div>
-					                    </div>
-					                </div>
-					            </li>
-					            <li class="text-center">
-					                <img src="img/banner/banner-2.jpg" alt="">
-					                <div class="container">
-					                    <div class="row">
-					                        <div class="col-md-12">
-					                            <h1 class="m-b-20"><strong>Welcome To <br> Orange Edu Resolution</strong></h1>
-					                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-					                            <p><a class="btn hvr-hover" href="#" data-toggle="modal" data-target="#enquiry_form">Enquiry Now</a></p>
-					                        </div>
-					                    </div>
-					                </div>
-					            </li>
-					            <li class="text-center">
-					                <img src="img/banner/banner-1.jpg" alt="">
-					                <div class="container">
-					                    <div class="row">
-					                        <div class="col-md-12">
-					                            <h1 class="m-b-20"><strong>Welcome To <br> Orange Edu Resolution</strong></h1>
-					                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-					                            <p><a class="btn hvr-hover" href="#" data-toggle="modal" data-target="#enquiry_form">Enquiry Now</a></p>
-					                        </div>
-					                    </div>
-					                </div>
-					            </li>
-					        </ul>
-					        <div class="slides-navigation">
-					            <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-					            <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-					        </div>
-					    </div> -->
 					    <!-- End Slider -->
                 </div>
             </div>
        </div>
+       </div>
   <!--  End banner part -->
-    <!-- slider_area_start -->
-  <!--   <div class="slider_area ">
-        <div class="slider_area_inner slider_bg_1 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-7">
-                        <div class="single_slider">
-                            <div class="slider_text">
-                                <label style="color: white;font-size: 35px;font-family: 'Playfair Display', serif;">High Quality</label><br>
-                                <label style="color: white;font-size: 30px;font-family: 'Playfair Display', serif;">Educational Advice and Support</label>
-                                <p>We are providing a progressive educational facilities for academic and non academic organization.</p>
-                                <a href="registerform.jsp" class="boxed-btn4">New User Registration</a>
-                               
-                            </div>
-                        </div>
+  <!-- Start Enquiry Modal Modal -->
+  <div id="enquiry_form" class="modal fade 	" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content enquiry-form">
+           
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+             <div id="success_message" style="width:100%; height:100%; display:none;color:#fff; "> <h3 style="font-weight: bold;color: #ad1616;font-family: monospace;">Sent your enquiry successfully!</h3> </div>
+             <div id="error_message" style="width:100%; height:100%; display:none;color:red "> <h3 style="font-weight: bold;color: red;font-family: monospace;">Error! Sorry there was an error sending your enquiry.</h3> </div>
+            
+                <form>
+                <h4><label  class="enqiry-font" style="font-weight: bold;font-size: 31px;color: #3a19bdb8;">Enquiry Form</label></h4>
+               		<div class="form-group">
+                        <label for="name" class="enqiry-font"> User Name:</label>
+                        <input type="text" class="form-control" id="uname" name="uname" required maxlength="50">
                     </div>
-                </div>
+               		<div class="form-group">
+                        <label for="name" class="enqiry-font"> Institute/Firm Name :</label>
+                        <input type="text" class="form-control" id="iname" name="iname" required maxlength="150">
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="enqiry-font">Address:</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="enqiry-font">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="enqiry-font"> Mobile No.:</label>
+                        <input type="text" class="form-control" id="mobile" name="mobile" required maxlength="10">
+                    </div>
+                    <button type="button" class="btn btn-lg btn-danger btn-block" id="btnContactUs" onclick="saveEnquiry()">Send &rarr;</button>
+                </form>
+                <div id="success_message" style="width:100%; height:100%; display:none; "> <h3>Sent your message successfully!</h3> </div>
+                <div id="error_message" style="width:100%; height:100%; display:none; "> <h3>Error</h3> Sorry there was an error sending your form. </div>
             </div>
         </div>
-    </div> -->
-    <!-- slider_area_end -->
+    </div>
+</div>
+ 
 
     <!-- Start About Sanstha Sahyog services -->
  
@@ -387,6 +298,46 @@
      <!--   Start Gallery -->
        <div class="instagram-box">
         <div class="main-instagram owl-carousel owl-theme">
+        <%
+        	List<Gallery> lsList = (List<Gallery>)request.getAttribute("GALLERY_IMG");
+            if(null != lsList){
+            	for(Gallery gl:lsList){
+        %>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="data:image/jpg;base64,<%=gl.getBase64Image() %>" alt="" style="height:270px;" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+         <%
+            }}
+         %>
+          <!--   <div class="item">
+                <div class="ins-inner-box">
+                    <img src="img/gallery-2.jpg" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="img/gallery-3.jpg" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="img/gallery-4.jpg" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
             <div class="item">
                 <div class="ins-inner-box">
                     <img src="img/gallery-1.jpg" alt="" />
@@ -418,123 +369,15 @@
                         <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="img/gallery-1.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="img/gallery-2.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="img/gallery-3.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="img/gallery-4.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
+            </div> -->
            
         </div>
     </div>
     
      <!--   End Gallery -->
     <!-- footer_start -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="index.jsp">
-                                   <!-- <img src="img/Logo.png" alt="">-->
-                                </a>
-                            </div>
-                            <p class="footer_text">416 Bhagirath Pura, Indore, M.P<br>
-                                8109033456, 9827016480, 9977866588<br>
-                                <a class="domain" href="#">vijay.dubey@sansthasahyog.com</a></p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Userfull Area
-                            </h3>
-                            <ul>
-                                <li><a href="#">Advertisment Area
-                                    </a></li>
-                                <li><a href="#">Academic Area</a></li>
-                                <li><a href="#">Non Academic Area</a></li>
-                                <li><a href="#">School Area</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Useful Links
-                            </h3>
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#"> Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
-                            </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </footer>
+     <jsp:include page="footer.jsp" />  
+
     <!-- footer_end -->
     
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -553,6 +396,8 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/main.js"></script>
+    
 </body>
 
 </html>

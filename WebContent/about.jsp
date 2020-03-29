@@ -1,4 +1,7 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"  
+    import="java.util.*, com.sanstha.sahyog.model.*"
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,47 +25,11 @@
 
 <body>
   
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center justify-content-between no-gutters">
-                       <div class="col-xl-3 col-lg-3" style="padding:30px;">
-                            <div class="logo-img">
-                                <a href="index.jsp">
-                                    <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-9">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">Home</a></li>
-                                         <li><a href="about.html">Our Services</a></li>
-                                          <li><a href="about.html">Media</a></li>
-                                           <li><a href="about.html">Online Serives</a></li>
-                                        <li><a href="about.html">About Us</a></li>                                        
-                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="index.jsp">Photos</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+   <jsp:include page="header.jsp" />  
     <!-- header-end -->
-
+   <%
+		Map<String,String> aboutUs = (Map<String,String>)request.getAttribute("ABOUT-US");
+	%>
      <!-- Start about us -->
  <div class="about-box-main">
         <div class="container">
@@ -72,32 +39,27 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h2 class="noo-sh-title-top">We are <span>Sanstha Sahyog</span></h2>
-                    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                        voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					<a class="btn hvr-hover" href="#">Read More</a>
+                    <h2 class="noo-sh-title-top"><%=aboutUs.get("header") %></span></h2>
+                    <p><%=aboutUs.get("body") %></p>
                 </div>
             </div>
             <div class="row my-5">
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
                         <h3>We are Trusted</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
                         <h3>We are Professional</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
                         <h3>We are Expert</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
                     </div>
                 </div>
             </div>

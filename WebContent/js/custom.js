@@ -5,6 +5,7 @@
 	   Loader 
 	   ................................................. */
 	$(window).on('load', function() {
+		 $("#pageLoad").modal('show');
 		$('.preloader').fadeOut();
 		$('#preloader').delay(550).fadeOut('slow');
 		$('body').delay(450).css({

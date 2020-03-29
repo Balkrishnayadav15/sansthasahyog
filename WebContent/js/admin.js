@@ -17,6 +17,33 @@ $(document).ready(function(){
 					window.location.replace("login.html");
 				}
 	});
+	
+	$.urlParam = function(name){
+	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	    if (results==null) {
+	       return null;
+	    }
+	    return decodeURI(results[1]) || 0;
+	}
+	
+	var userType = $.urlParam('userType');
+	
+	if(userType != null && userType != undefined && userType !== ''){
+		$('#dashboardAdmin').hide();
+		if(userType === 'pendingUser'){
+			$('#PendingUList').show();
+			$('#RejectedUList').hide();
+			$('#RegisteredUList').hide();
+		}else if(userType === 'rejectedUser'){
+			$('#RejectedUList').show();
+			$('#RegisteredUList').hide();
+			$('#PendingUList').hide();
+		}else{
+			$('#RegisteredUList').show();
+			$('#RejectedUList').hide();
+			$('#PendingUList').hide();
+		}
+	}
 });
 
 function userDetails(id, status){
@@ -24,13 +51,36 @@ function userDetails(id, status){
 		$('#pending_'+id).toggle();
 		$('#pending_details_'+id).show();
 		//$('#update_'+id).hide();
+	}else if(status === 'rejected'){
+		$('#rejected_'+id).toggle();
+		$('#rejected_details_'+id).show();
+		//$('#update_'+id).hide();
+	}else if(status === 'enquiry'){
+		$('#enquiry_'+id).toggle();
+		$('#enquiry_details_'+id).show();
 	}else{
 		$('#'+id).toggle();
 		$('#details_'+id).show();
 		$('#update_'+id).hide();
 	}
 }
-
+function showHideUList(status){
+	
+	$('#dashboardAdmin').hide();
+	if(status === 'pendingUser'){
+		$('#PendingUList').show();
+		$('#RejectedUList').hide();
+		$('#RegisteredUList').hide();
+	}else if(status === 'rejectedUser'){
+		$('#RejectedUList').show();
+		$('#RegisteredUList').hide();
+		$('#PendingUList').hide();
+	}else{
+		$('#RegisteredUList').show();
+		$('#RejectedUList').hide();
+		$('#PendingUList').hide();
+	}
+}
 function logout(){
 	sessionStorage.clear();
 	window.location.replace("login.html");
@@ -43,7 +93,7 @@ function update(id){
 
 function approve(id){
 
-	var dataString = 'currentUser=' + currentUser+'&userId='+id;
+	var dataString = 'currentUser=' + currentUser+'&userId='+id+'&operation=approve';
 	
 	$("#divLoading").addClass('show');
 	jQuery.ajax({
@@ -61,6 +111,27 @@ function approve(id){
 	});
 
 }
+function reject(id){
+
+	var dataString = 'currentUser=' + currentUser+'&userId='+id+'&operation=reject';
+	
+	$("#divLoading").addClass('show');
+	jQuery.ajax({
+		url: "/approve",
+		data: dataString,
+		type: "POST",
+		success: function(data){
+			var responseData = JSON.parse(data);
+			if(responseData.VALID=='yes') {
+				window.location.replace("admin");
+			} 
+			$("#divLoading").removeClass('show');
+		},
+		error: function (){}
+	});
+
+}
+
 
 function saveUpdatedDetails(id){
 	var isSubmit = false; 

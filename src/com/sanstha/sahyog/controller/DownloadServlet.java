@@ -136,6 +136,12 @@ public class DownloadServlet extends HttpServlet {
             	if(columns[i].equals("Status")){
             		row.createCell(i).setCellValue(user.getStatus());
             	}
+            	if(columns[i].equals("Dise Code")){
+            		row.createCell(i).setCellValue(user.getDise_code());
+            	}
+            	if(columns[i].equals("Affiliation Code")){
+            		row.createCell(i).setCellValue(user.getAffilition_code());
+            	}
             }
         }
 

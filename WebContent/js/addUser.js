@@ -17,9 +17,10 @@ $(document).ready(function(){
 		var confirm_password = $("#confirm_password").val();
 		 var isSubmit = false; 
 //		Checking for blank fields.
-		if( userId ==''){
+		if( userId =='' || userId == 0 || userId =='0'){
 			$("#userId_error").show();
 			isSubmit = true;
+			return false;
 		}else{
 			$("#userId_error").hide();
 			isSubmit = false;
@@ -27,6 +28,7 @@ $(document).ready(function(){
 		if( password ==''){
 			$("#password_error").show();
 			isSubmit = true;
+			return false;
 		}else{
 			$("#password_error").hide();
 			isSubmit = false;
@@ -35,10 +37,12 @@ $(document).ready(function(){
 			$("#confirm_password_empty_error").show();
 			$("#confirm_password_error").hide();
 			isSubmit = true;
+			return false;
 		}else{
 			if(password != confirm_password){
 				$("#confirm_password_error").show();
 				isSubmit = true;
+				return false;
 			}else{
 				$("#confirm_password_empty_error").hide();
 				$("#confirm_password_error").hide();
@@ -48,6 +52,7 @@ $(document).ready(function(){
 		 if(userType == null || userType == '0'){
 			 $("#userType_error").css("display","block");
 			 isSubmit = true;
+			 return false;
 		 }else{
 			 $("#userType_error").hide();
 			 isSubmit = false;

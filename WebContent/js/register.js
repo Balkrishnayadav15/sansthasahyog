@@ -4,12 +4,12 @@ var currentUserType = sessionStorage.getItem("USER_TYPE");
 $(document).ready(function(){
 	$("#divLoading").addClass('show');
 	if(currentUserType == 'Admin'){
-		$("#adminUser").show();
-		$("#PendingUList").show();
+		/*$("#adminUser").show();
+		$("#PendingUList").show();*/
 		
 	}else{
-		$("#adminUser").hide();
-		$("#PendingUList").hide();
+	/*	$("#adminUser").hide();
+		$("#PendingUList").hide();*/
                      	}
 	$.get('/authenticate?currentUser='+currentUser,
 			function (data) {
@@ -61,7 +61,23 @@ $("#submit").click(function(){
 	 var email = document.getElementById("email").value;
 	 var registerFees = document.getElementById("registerFees").value;
 	 var gender = $("input[name='gender']:checked"). val();
+	 var diseCode = document.getElementById("diseCode").value;
+	 var affNumber = document.getElementById("affNumber").value;
 	 
+	 if(affNumber == null || affNumber == ''){
+		 $("#affNumber_error").show();
+		 isSubmit = true;
+	 }else{
+		 $("#affNumber_error").hide();
+		 isSubmit = false;
+	 }
+	 if(diseCode == null || diseCode == ''){
+		 $("#diseCode_error").show();
+		 isSubmit = true;
+	 }else{
+		 $("#diseCode_error").hide();
+		 isSubmit = false;
+	 }
 	 if(schoolName == null || schoolName == ''){
 		 $("#school_name_error").show();
 		 isSubmit = true;
@@ -144,7 +160,7 @@ $("#submit").click(function(){
 	 if(!isSubmit){
 	     var dataString = 'schoolName='+ schoolName + '&schoolAddress=' + schoolAddress+ '&eYear=' + eYear+ '&userType=' + userType +
 					     '&name=' + name+ '&gender=' + gender+ '&address=' + address+ '&mobile=' + mobile +
-					     '&dateofbirth=' + dateofbirth+ '&pincode=' + pincode+ '&email=' + email+ '&registerFees=' + registerFees+ '&currentUser=' + currentUser;
+					     '&dateofbirth=' + dateofbirth+ '&pincode=' + pincode+ '&email=' + email+ '&registerFees=' + registerFees+ '&currentUser=' + currentUser+ '&affNumber=' + affNumber+ '&diseCode=' + diseCode;
 	     $("#divLoading").addClass('show');
 	     
 	     jQuery.ajax({
@@ -157,7 +173,7 @@ $("#submit").click(function(){
 						 $("#signup-content").hide();
 			        	 $("#success_user_div").show();
 			        	 var successText = "<h2 style='color: #62d562'> User "+responseData.USER.name+" with Registration number "+responseData.USER.registerId + " saved successfully.</h2>";
-			        	 var notification_msg =  "<br><br><br><p class='sendMsg' style='background-color: antiquewhite;width: 100%;'>Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is 101. Please visit our site www.sasnthasahyog.com</p>";
+			        	 var notification_msg =  "<br><br><br><p class='sendMsg' style='background-color: antiquewhite;width: 100%;'>Thank you for Registing yourself with Shayog Ashasakiya Vidhalay Sangh.Your Registion number is "+responseData.USER.registerId+". Please visit our site www.sasnthasahyog.com</p>";
 			        	 $("#notification_msg").html(notification_msg);
 			        	 $("#success_user").html(successText);
 			        	 $("#divLoading").removeClass('show');

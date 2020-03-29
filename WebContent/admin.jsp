@@ -32,88 +32,40 @@
 <body>
         <div id="divLoading"> 
         </div>
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center justify-content-between no-gutters">
-                        <div class="col-xl-3 col-lg-3" style="padding:30px;">
-                            <div class="logo-img">
-                                <a href="index.jsp">
-                                    <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-9">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">Home</a></li>
-                                         <li><a href="about.html">Our Services</a></li>
-                                          <li><a href="about.html">Media</a></li>
-                                           <li><a href="about.html">Online Serives</a></li>
-                                        <li><a href="about.html">About Us</a></li>                                        
-                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="index.jsp">Photos</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                       
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container" style="background-color:#000">
-	                <div class="row">
-	                  <div class="col-xl-12 col-lg-12 d-none d-lg-block">
-	                            <div class="social_media_links">
-	                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
-	                               
-	                            </div>
-	                        </div>
-	                </div>
-	          </div>
-            </div>
-        </div>
-    </header>
+    <jsp:include page="header.jsp" />  
     <!-- header-end -->
 
     <!-- slider_area_start -->
      <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a></div>
 	<div class="main">
-    <div class="container" style="padding-bottom:50px">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <!-- Links -->
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a  class="nav-link" href="admin">User List</a>
-              </li>
-              <li class="nav-item" id="adminUser">
-                  <a class="nav-link" href="getAllAdmin">Admin User</a>
-              </li>
-              <li class="nav-item">
-                    <a class="nav-link" href="registerform.jsp" >Register User</a>
-               </li>
-               <li class="nav-item">
-                    <a class="nav-link" href="downloadUser.html" >Download</a>
-               </li>
-            </ul>
-        </nav>
-       <div>
-       		<% 
+    <div class="container" style="padding-bottom:50px;min-height:350px">
+			<jsp:include page="adminHeader.jsp" /> 
+			<!-- Start Admin Dashboard -->
+			<div id="dashboardAdmin">
+				<!-- <h2 class="adminHeader">Manage Home Pagee</h2>
+				<a href="banner">Click Here to Manage Banner Image </a>
+				<br>
+				<br>
+				<a href="gallery">Click Here to Manage Gallery Image</a>
+				<br>
+				<br>
+				<a href="latestNews.jsp">Click Here to Manage Home Page Latest News Loader</a> -->
+		   </div>
+		   <!-- Start Admin Dashboard -->
+			<div>
+       		<%
+       			//List of All Registered User
        			List<User> userList = (List<User>) request.getAttribute("ALL_USER");
-       		
-   				List<User> pendingUsers = (List<User>) request.getAttribute("PENDING_USER");
 
+   			    //List of All Pending User
+       			List<User> pendingUsers = (List<User>) request.getAttribute("PENDING_USER");
+       			
+   			    //List of All Rejected User
+       			List<User> rejectedUsers = (List<User>) request.getAttribute("REJECTED_USER");
+       			
        		%>
        	<!-- Start list of user with pending status -->
-       		<div class="panel panel-primary" id="PendingUList" >
+       		<div class="panel panel-primary" id="PendingUList" style="display:none;">
 					    <div class="panel-heading">
 					      <h2 class="adminHeader">Pending User List</h2>
 					    </div>
@@ -128,8 +80,14 @@
 					          </tr>
 					        </thead>
 					        <tbody>
-					        <% for(User user:pendingUsers){%>
+					        <% if(null != pendingUsers){
+					        	int color = 0;
+					        for(User user:pendingUsers){if(color%2 == 0){
+					        %>  
 					          <tr>
+					        <%}else{ %>
+					         <tr style="background-color:#ec887d"> 
+					        <% } color++; %>
 					            <td><%=user.getRegisterId() %></td>
 					            <td><%=user.getName() %></td>
 					            <td class="hideDTEle"><%=user.getEmail() %></td>
@@ -144,6 +102,8 @@
 					          	<td colspan="5">
 					          		<div>
 								        <button onclick="approve('<%=user.getRegisterId()%>')" class="btn btn-dark" style="margin-left: 10px;float: right;">Approve</button>
+								   		<button onclick="reject('<%=user.getRegisterId()%>')" class="btn btn-danger" style="margin-left: 10px;float: right;">Reject</button>
+								   		
 								    </div>
 								    
 								    <!--Start Approve Modal HTML -->
@@ -203,6 +163,12 @@
 										   <div>
 										    <span><b>Institute/Firm Established Year: </b></span><span><%=user.geteYear() %></span>
 										  </div> 
+										  <div>
+										    <span><b>Affiliation Code: </b></span><span><%=user.getAffilition_code() %></span>
+										  </div> 
+										  <div>
+										    <span><b>Dise Code: </b></span><span><%=user.getDise_code() %></span>
+										  </div> 
 										   <div>
 										    <span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
 										  </div>
@@ -213,17 +179,17 @@
 									  
 					          	<td>
 					          </tr>
-					        <% } %>
+					        <% }} %>
 					        </tbody>
 					      </table>
 					    </div>
 					</div>
        		<!-- End list of user with pending status -->
        		
-       		<!-- Start Completed user registration list -->
-				  <div class="panel panel-primary" >
+       		<!-- Start list of user with Rejected status -->
+       		<div class="panel panel-primary" id="RejectedUList" style="display:none;">
 					    <div class="panel-heading">
-					      <h2 class="adminHeader">User List</h2>
+					      <h2 class="adminHeader">Rejected User List</h2>
 					    </div>
 					    <div class="panel-body">
 					      <table class="table table-striped">
@@ -236,8 +202,133 @@
 					          </tr>
 					        </thead>
 					        <tbody>
-					        <% for(User user:userList){%>
+					        <% if(null != rejectedUsers){
+					        	int color = 0;
+					        for(User user:rejectedUsers){
+					        	if(color%2 == 0){
+					        %>  
 					          <tr>
+					        <%}else{ %>
+					         <tr style="background-color:#ec887d"> 
+					        <% } color++; %>
+					            <td><%=user.getRegisterId() %></td>
+					            <td><%=user.getName() %></td>
+					            <td class="hideDTEle"><%=user.getEmail() %></td>
+					            <td class="hideDTEle"><%=user.getMobile() %></td>
+					            <td><!-- <button (click)="deleteUser(user.id,user)" class="btn btn-danger">Delete</button>
+					                <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button> -->
+					                <button onclick="userDetails('<%=user.getRegisterId()%>','rejected')" class="btn btn-info hideDTEle" style="margin-left: 10px">Details</button>
+					           		<button onclick="userDetails('<%=user.getRegisterId()%>','rejected')" class="btn-xs btn-info" style="margin-left: 10px">Details</button>
+					            </td>
+					          </tr>
+					          <tr id="rejected_<%=user.getRegisterId() %>" style="display:none">
+					          	<td colspan="5">
+								    <!--Start Approve Modal HTML -->
+										<div id="approve_modal" class="modal fade"  tabindex="-1">
+											<div class="modal-dialog modal-confirm">
+												<div class="modal-content">
+													<div class="modal-header">
+														<div class="icon-box">
+															<i class="material-icons">&#xE5CD;</i>
+														</div>				
+														<h4 class="modal-title">Are you sure?</h4>	
+										                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														<p>Do you really want to delete these records? This process cannot be undone.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+														<button type="button" class="btn btn-danger" onclick="approve('<%=user.getRegisterId()%>')" data-dismiss="modal" >Delete</button>
+													</div>
+												</div>
+											</div>
+										</div>  
+								 <!--End Approve Modal HTML -->
+								    
+								    <div id="rejected_details_<%=user.getRegisterId() %>">
+						          	 	 <div style="margin-top: 42px;">
+										    <span><b>Name: </b></span> <span><%=user.getName() %></span>
+										  </div>
+										  <div>
+										    <span><b>Address: </b></span> <span><%=user.getAddress() %></span>
+										  </div>
+										  <div>
+										    <span><b>Email Id: </b></span><span><%=user.getEmail() %></span>
+										  </div>  
+										  <div>
+										    <span><b>Mobile Number: </b></span> <span><%=user.getMobile() %></span>
+										  </div> 
+										  <div>
+										    <span><b>Gender: </b></span><span><%=user.getGender() %></span>
+										  </div> 
+										  <div>
+										    <span><b>User Type: </b></span><span><%=user.getUserType() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Date of birth: </b></span><span><%=user.getDateOfBirth() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Pincode: </b></span><span><%=user.getPincode() %></span>
+										  </div>
+										  <div>
+										    <span><b>Institute/Firm Name: </b></span><span><%=user.getSchoolName() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Institute/Firm Addess: </b></span><span><%=user.getSchoolAddress() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Institute/Firm Established Year: </b></span><span><%=user.geteYear() %></span>
+										  </div> 
+										    <div>
+										    <span><b>Affiliation Code: </b></span><span><%=user.getAffilition_code() %></span>
+										  </div> 
+										  <div>
+										    <span><b>Dise Code: </b></span><span><%=user.getDise_code() %></span>
+										  </div> 
+										   <div>
+										    <span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
+										  </div>
+										  <div>
+										  	<span><b>SMS Status: </b></span><span><%=user.getSmsSend() %></span><br>
+										  </div>
+									  </div> 
+									  
+					          	<td>
+					          </tr>
+					        <% } }%>
+					        </tbody>
+					      </table>
+					    </div>
+					</div>
+       		<!-- End list of user with Rejected status -->
+       		
+       		<!-- Start Completed user registration list -->
+				  <div class="panel panel-primary" id="RegisteredUList" style="display:none;">
+					    <div class="panel-heading">
+					      <h2 class="adminHeader"> Registered User List</h2>
+					    </div>
+					    <div class="panel-body">
+					      <table class="table table-striped">
+					        <thead>
+					          <tr style="background-color: #3a3838;color:#fff">
+					            <th>Registration Id</th>
+					            <th>Name</th>
+					            <th class="hideDTEle">Email</th>
+					            <th class="hideDTEle">Mobile number</th>
+					            <th></th>
+					          </tr>
+					        </thead>
+					        <tbody>
+					        <% if(null != userList){ 
+					        	int color = 0;
+					        for(User user:userList){
+					        if(color%2 == 0){
+					        %>  
+					          <tr>
+					        <%}else{ %>
+					         <tr style="background-color:#ec887d"> 
+					        <% } color++; %>
 					            <td><%=user.getRegisterId() %></td>
 					            <td><%=user.getName() %></td>
 					            <td class="hideDTEle"><%=user.getEmail() %></td>
@@ -287,6 +378,12 @@
 										  </div> 
 										   <div>
 										    <span><b>Institute/Firm Established Year: </b></span><span><%=user.geteYear() %></span>
+										  </div> 
+										    <div>
+										    <span><b>Affiliation Code: </b></span><span><%=user.getAffilition_code() %></span>
+										  </div> 
+										  <div>
+										    <span><b>Dise Code: </b></span><span><%=user.getDise_code() %></span>
 										  </div> 
 										   <div>
 										    <span><b>Registration Fees: </b></span><span><%=user.getRegisterFees() %></span>
@@ -447,7 +544,7 @@
 									  </div>
 					          	<td>
 					          </tr>
-					        <% } %>
+					        <% }} %>
 					        </tbody>
 					      </table>
 					    </div>
@@ -460,86 +557,11 @@
 	</div>
     <!-- slider_area_end -->
 
- 
+  
+       		
     <!-- footer_start -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row"  style="background:#202020 !important">
-                    <div class="col-xl-4 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="index.jsp">
-                                   <!-- <img src="img/Logo.png" alt="">-->
-                                </a>
-                            </div>
-                           <p class="footer_text">416 Bhagirath Pura, Indore, M.P<br>
-                                8109033456, 9827016480, 9977866588<br>
-                                <a class="domain" href="#">vijay.dubey@sansthasahyog.com</a></p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Userfull Area
-                            </h3>
-                            <ul>
-                                <li><a href="#">Advertisment Area
-                                    </a></li>
-                                <li><a href="#">Academic Area</a></li>
-                                <li><a href="#">Non Academic Area</a></li>
-                                <li><a href="#">School Area</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Useful Links
-                            </h3>
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#"> Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
-                            </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </footer>
+      <jsp:include page="footer.jsp" />  
+
     <!-- footer_end -->
 
 

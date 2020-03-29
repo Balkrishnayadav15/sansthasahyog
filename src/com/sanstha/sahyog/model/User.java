@@ -2,7 +2,8 @@ package com.sanstha.sahyog.model;
 
 public class User {
 
-	public long registerId;
+	public long id;
+	public String registerId;
 	public String schoolName;
 	public String schoolAddress;
 	public String eYear;
@@ -23,6 +24,29 @@ public class User {
 	public String password;
 	public String status;
 	
+	public String dise_code;
+	public String affilition_code;
+	
+	
+	
+	public String getDise_code() {
+		return dise_code;
+	}
+	public void setDise_code(String dise_code) {
+		this.dise_code = dise_code;
+	}
+	public String getAffilition_code() {
+		return affilition_code;
+	}
+	public void setAffilition_code(String affilition_code) {
+		this.affilition_code = affilition_code;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -102,10 +126,10 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public long getRegisterId() {
+	public String getRegisterId() {
 		return registerId;
 	}
-	public void setRegisterId(long registerId) {
+	public void setRegisterId(String registerId) {
 		this.registerId = registerId;
 	}
 	public String getCreatedBy() {
@@ -146,10 +170,11 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public User(long registerId, String schoolName, String schoolAddress, String eYear, String userType, String name,
+	public User(String registerId, String schoolName, String schoolAddress, String eYear, String userType, String name,
 			String gender, String address, String mobile, String dateOfBirth, String pincode, String email,
-			String registerFees, String createdBy, String updatedBy, String createdDate, String updatedDate,String smsSend,String status) {
+			String registerFees, String createdBy, String updatedBy, String createdDate, String updatedDate,String smsSend,String status,String affilition_code,String dise_code) {
 		super();
+		//this.id = id;
 		this.registerId = registerId;
 		if(schoolName != null) { this.schoolName = schoolName; }else { this.schoolName = "";}
 		if(schoolAddress != null) {this.schoolAddress = schoolAddress;}else { this.schoolAddress = "";}
@@ -169,6 +194,8 @@ public class User {
 		if(updatedDate != null) {this.updatedDate = updatedDate;}else { this.updatedDate = "";}
 		if(smsSend != null) {this.smsSend = updatedDate;}else { this.smsSend = "";}
 		if(status != null) {this.status = status;}else { this.status = "";}
+		if(dise_code != null) {this.dise_code = dise_code;}else { this.dise_code = "";}
+		if(affilition_code != null) {this.affilition_code = affilition_code;}else { this.affilition_code = "";}
 	}
 	
 	public User() {}

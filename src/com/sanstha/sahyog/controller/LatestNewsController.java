@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,45 +14,42 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sanstha.sahyog.dao.DashBoardDao;
 import com.sanstha.sahyog.dao.LoginDao;
 import com.sanstha.sahyog.util.ResponseUtility;
 
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/latestNews")
+public class LatestNewsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public LatestNewsController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		HttpSession session = request.getSession();
-		session.setAttribute("LOGGEDIN", userId);
+		String header = request.getParameter("newsHeader");
+		String body = request.getParameter("newsBody");
 		
-		Map result = new HashMap();
-		PrintWriter writer = response.getWriter();
-		LoginDao login = new LoginDao();
-		String userType = login.isValidUser(userId, password);
-		if(null != userType) {
-			session.setAttribute("USER_TYPE", userType);
-			//response.sendRedirect("admin.jsp");
-			result.put("VALID", "yes");
-			result.put("userType", userType);
-		}else {
-			result.put("VALID", "no");
+		DashBoardDao latestDAo = new DashBoardDao();
+		boolean isNewsUploaded = latestDAo.saveLatestPageNews(header, body);
+		if(isNewsUploaded) {
+			request.setAttribute("HEADER_IMG", "SAVED");
 		}
-		String jsonStr = ResponseUtility.objectToString(result); 
-		writer.println(jsonStr);
-		writer.close();
+		
+		String adminJsp = "/latestNews.jsp";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(adminJsp);
+		dispatcher.include(request,response);
 	}
 }

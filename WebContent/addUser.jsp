@@ -36,72 +36,14 @@
 <body>
         <div id="divLoading"> 
         </div>
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center justify-content-between no-gutters">
-                        <div class="col-xl-3 col-lg-3" style="padding:30px;">
-                            <div class="logo-img">
-                                <a href="index.jsp">
-                                    <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-9">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">Home</a></li>
-                                         <li><a href="about.html">Our Services</a></li>
-                                          <li><a href="about.html">Media</a></li>
-                                           <li><a href="about.html">Online Serives</a></li>
-                                        <li><a href="about.html">About Us</a></li>                                        
-                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="index.jsp">Photos</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container" style="background-color:#000">
-	                <div class="row">
-	                  <div class="col-xl-12 col-lg-12 d-none d-lg-block">
-	                            <div class="social_media_links">
-	                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
-	                               
-	                            </div>
-	                        </div>
-	                </div>
-	          </div>
-            </div>
-        </div>
-    </header>
+    <jsp:include page="header.jsp" />  
     <!-- header-end -->
 
     <!-- slider_area_start -->
     <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a></div>
 	<div class="main">
     <div class="container">
-     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <!-- Links -->
-                    <ul class="navbar-nav">
-                      <li class="nav-item">
-                          <a  class="nav-link" href="admin">User List</a>
-                      </li>
-                      <li class="nav-item">
-                    <a class="nav-link" href="registerform.jsp" >Register User</a>
-                </li>
-                    </ul>
-                </nav>
+     <jsp:include page="adminHeader.jsp" />
        <div class="signup-content">
                 <div class="signup-img">
                     <img src="img/signup-img.jpg" alt="">
@@ -117,7 +59,19 @@
                         <div class="form-row">
                             <div class="form-group-name">
                                 <label for="name">User Id :</label>
-                                <input type="text" name="userId" id="userId" />
+                                <select name="userId" id="userId">
+                                    <option value="0">Select User Id</option>
+                                    <% 
+                                    
+                                    List<String> userIds = (List<String>)request.getAttribute("REG_IDS");
+                                    	if(null != userIds){
+                                    		for(String userId : userIds){
+                                    %>
+									<option value="<%=userId %>"><%=userId %></option>
+									<% 
+                                    	}}
+									%>
+								</select>
                                  <div class="alert alert-danger" role="alert" id="userId_error" style="display:none">
 										  Please enter User id.
 						</div>
@@ -201,84 +155,8 @@
 
  
     <!-- footer_start -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row"  style="background:#202020 !important">
-                    <div class="col-xl-4 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="index.jsp">
-                                   <!-- <img src="img/Logo.png" alt="">-->
-                                </a>
-                            </div>
-                           <p class="footer_text">416 Bhagirath Pura, Indore, M.P<br>
-                                8109033456, 9827016480, 9977866588<br>
-                                <a class="domain" href="#">vijay.dubey@sansthasahyog.com</a></p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Userfull Area
-                            </h3>
-                            <ul>
-                                <li><a href="#">Advertisment Area
-                                    </a></li>
-                                <li><a href="#">Academic Area</a></li>
-                                <li><a href="#">Non Academic Area</a></li>
-                                <li><a href="#">School Area</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Useful Links
-                            </h3>
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#"> Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
-                            </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </footer>
+     <jsp:include page="footer.jsp" />  
+
     <!-- footer_end -->
 
 

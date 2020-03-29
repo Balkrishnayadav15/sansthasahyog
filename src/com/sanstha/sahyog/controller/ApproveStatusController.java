@@ -38,6 +38,7 @@ public class ApproveStatusController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String currentUser = request.getParameter("currentUser");
+		String operation = request.getParameter("operation");
 		HttpSession session = request.getSession();
 		PrintWriter writer = response.getWriter();
 		User user = null;
@@ -49,7 +50,7 @@ public class ApproveStatusController extends HttpServlet {
 			user = new User();
 			
 			if(null != request.getParameter("userId")) {
-				user.setRegisterId(Long.parseLong(request.getParameter("userId")));
+				user.setRegisterId(request.getParameter("userId"));
 			}
 			if(null != currentUser) {
 				user.setUpdatedBy(currentUser);
@@ -57,7 +58,7 @@ public class ApproveStatusController extends HttpServlet {
 			
 			try {
 				
-				user = register.approveUserStatus(user);
+				user = register.approveUserStatus(user,operation);
 				if(null != user) {
 					result.put("USER", user);
 				}else {

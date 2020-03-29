@@ -36,7 +36,7 @@ public class RegistrationDao {
             stmt.setString(10,user.getSchoolAddress() );
             stmt.setString(11,user.geteYear() );
             stmt.setString(12,user.getUpdatedBy());
-            stmt.setLong(13, user.getRegisterId());
+            stmt.setString(13, user.getRegisterId());
             int row = stmt.executeUpdate();
             if(row == 1) {
             	return user;
@@ -73,7 +73,7 @@ public class RegistrationDao {
 	        try {
 	        	conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(generateInsert(user));
-	            stmt.setLong(1, user.getRegisterId());
+	            stmt.setString(1, user.getRegisterId());
 	            stmt.setString(2, user.getName());
 	            stmt.setString(3, user.getUserType());
 	            stmt.setString(4, user.getGender());
@@ -92,6 +92,10 @@ public class RegistrationDao {
 	            stmt.setString(17,todaysDate);
 	            stmt.setString(18,"");
 	            stmt.setString(19,"");
+	            stmt.setLong(20,user.getId());
+	            stmt.setString(21,user.getAffilition_code());
+	            stmt.setString(22,user.getDise_code());
+	            
 	            int row = stmt.executeUpdate();
 	            if(row == 1) {
 	            	return user;
@@ -111,16 +115,16 @@ public class RegistrationDao {
 	
 	private String generateInsert(User user) {
 		return "INSERT INTO Registration (REGISTRATION_ID, Name, user_type,gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees,"
-				+ "Institue_name,Institue_address,Established_year,CREATED_BY,SMS_SEND,status,CREATED_DATE,MODIFIED_DATE,MODIFIED_BY) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "Institue_name,Institue_address,Established_year,CREATED_BY,SMS_SEND,status,CREATED_DATE,MODIFIED_DATE,MODIFIED_BY,id,affil_code,dise_code) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 	}
 	
 	public long getNextRegistrationNumber() throws Exception {
-		long nextRegNum = 0;
+		long nextRegNum = 000;
 		Connection conn=null;
         PreparedStatement stmt=null;
-        String query = "select max(REGISTRATION_ID) from Registration";
+        String query = "select max(id) from Registration";
         try {
 	        	 conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(query);
@@ -139,25 +143,56 @@ public class RegistrationDao {
 				e.printStackTrace();
 			}
      }
-        return nextRegNum+1;
+        return nextRegNum+001;
 	}
 	
 	public List<User> getAllPendingUser() throws Exception {
-		long nextRegNum = 0;
+		long nextRegNum = 000;
 		Connection conn=null;
         PreparedStatement stmt=null;
         List<User> userList = new ArrayList<User>();
         User user = null;
         String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
-        		" CREATED_BY,sms_send,status from Registration where status='Pending' order by REGISTRATION_ID asc ";
+        		" CREATED_BY,sms_send,status,affil_code,dise_code from Registration where status='Pending' order by id asc ";
      
         try  {
         	 conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
-            	user = new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16));
+            	user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
+            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
+            	userList.add(user);
+			}
+        }catch(Exception e) {
+        	throw e;
+        } finally  {
+	           try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+     }
+        return userList;
+	}
+	
+	public List<User> getAllRejectedUser() throws Exception {
+		long nextRegNum = 0;
+		Connection conn=null;
+        PreparedStatement stmt=null;
+        List<User> userList = new ArrayList<User>();
+        User user = null;
+        String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
+        		" CREATED_BY,sms_send,status,affil_code,dise_code from Registration where status='Rejected' order by id asc ";
+     
+        try  {
+        	 conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+            	user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
+            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
             	userList.add(user);
 			}
         }catch(Exception e) {
@@ -180,15 +215,15 @@ public class RegistrationDao {
         List<User> userList = new ArrayList<User>();
         User user = null;
         String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
-        		" CREATED_BY,sms_send,status from Registration where status = 'Approved' order by REGISTRATION_ID asc ";
+        		" CREATED_BY,sms_send,status,affil_code,dise_code from Registration where status = 'Approved' order by id asc ";
      
         try  {
         	 conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
-            	user = new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16));
+            	user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
+            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
             	userList.add(user);
 			}
         }catch(Exception e) {
@@ -211,15 +246,15 @@ public class RegistrationDao {
         List<User> userList = new ArrayList<User>();
         User user = null;
         String query = "select REGISTRATION_ID,Institue_name,Institue_address,Established_year, user_type, Name, gender,Residential_Address,Mobile_number,Date_of_birth,Pincode,Email_id,Registration_fees," + 
-        		" CREATED_BY,sms_send,status from Registration order by REGISTRATION_ID asc ";
+        		" CREATED_BY,sms_send,status,affil_code,dise_code  from Registration where status = 'Approved' order by id asc ";
      
         try  {
         	 conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
-            	user = new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16));
+            	user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
+            			rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),null,null,null,rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
             	userList.add(user);
 			}
         }catch(Exception e) {
@@ -234,13 +269,13 @@ public class RegistrationDao {
      }
         return userList;
 	}
-	public boolean deleteUserDetails(long userId) {
+	public boolean deleteUserDetails(String userId) {
 		Connection conn=null;
         PreparedStatement stmt=null;
         try {
         	conn = DBUtil.getConnection();
             stmt = conn.prepareStatement("delete from Registration where REGISTRATION_ID = ?");
-            stmt.setLong(1, userId);
+            stmt.setString(1, userId);
             
             int row = stmt.executeUpdate();
             if(row == 1) {
@@ -259,14 +294,14 @@ public class RegistrationDao {
 	return false;
 	}
 	
-	public boolean updateSmsStatus(long userId) {
+	public boolean updateSmsStatus(String userId) {
 		Connection conn=null;
         PreparedStatement stmt=null;
         try {
         	conn = DBUtil.getConnection();
             stmt = conn.prepareStatement("UPDATE Registration SET  sms_send = ? where REGISTRATION_ID = ?");
             stmt.setString(1, "Yes");
-            stmt.setLong(2, userId);
+            stmt.setString(2, userId);
             
             int row = stmt.executeUpdate();
             if(row == 1) {
@@ -346,7 +381,35 @@ public List<User> getAllAdminUser() throws Exception{
     return adminUser;
 }
 
-public User approveUserStatus(User user) {
+
+public List<String> getAllUserIds() throws Exception{
+	Connection conn=null;
+    PreparedStatement stmt=null;
+    List<String> adminUser = new ArrayList<String>();
+    User user = null;
+    String query = "SELECT REGISTRATION_ID FROM Registration WHERE REGISTRATION_ID NOT IN ( SELECT user_id FROM user) and status = 'Approved' ";
+ 
+    try  {
+    	 conn = DBUtil.getConnection();
+        stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()) {
+        	adminUser.add(rs.getString(1));
+		}
+    }catch(Exception e) {
+    	throw e;
+    } finally  {
+           try {
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+ }
+    return adminUser;
+}
+
+public User approveUserStatus(User user, String operation) {
 	
  	Connection conn=null;
     PreparedStatement stmt=null;
@@ -354,9 +417,13 @@ public User approveUserStatus(User user) {
     	conn = DBUtil.getConnection();
     	String updateStatusQuery = "UPDATE Registration SET status = ?,MODIFIED_BY=? WHERE REGISTRATION_ID = ?";
         stmt = conn.prepareStatement(updateStatusQuery);
-        stmt.setString(1, "Approved");
+        if(operation.equals("approve")){
+            stmt.setString(1, "Approved");
+        }else{
+            stmt.setString(1, "Rejected");
+        }
         stmt.setString(2,user.getUpdatedBy());
-        stmt.setLong(3, user.getRegisterId());
+        stmt.setString(3, user.getRegisterId());
         int row = stmt.executeUpdate();
         if(row == 1) {
         	return user;

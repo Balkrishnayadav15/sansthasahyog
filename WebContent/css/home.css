@@ -135,3 +135,42 @@ padding: 25px 0px 20px 0px;
 #baguetteBox-overlay{
 	display:none;
 }
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.enquiry-form{
+	background: linear-gradient(45deg, #56ab2f, #a8e063);
+}
+.enqiry-font{
+	color:#fff;
+	font-family: monospace;
+    font-size: 19px;
+}
+.pageLoad-header{
+	color:#eef1f3;
+	font-family: monospace;
+	font-weight:bold;
+    font-size: 27px;
+}
+.pageLoad-body{
+	color:#eef1f3;
+	font-family: monospace;
+	font-weight:italic;
+    font-size: 20px;
+}

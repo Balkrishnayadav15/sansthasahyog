@@ -32,3 +32,10 @@ div.content {
    width : 1000px;
    height : 1000px;
 }
+
+.submenu-link{
+	padding: 0px 10px 5px 10px !important;
+    display: inline;
+    font-size: 14px;
+    color: #d6844b;
+    }

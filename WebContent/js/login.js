@@ -1,4 +1,4 @@
-var currentUser = sessionStorage.getItem("LOGGED_IN_USER");
+ var currentUser = sessionStorage.getItem("LOGGED_IN_USER");
 
 $(document).ready(function(){
 	$("#divLoading").addClass('show');

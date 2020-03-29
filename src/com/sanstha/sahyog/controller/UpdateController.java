@@ -82,7 +82,7 @@ public class UpdateController extends HttpServlet {
 				user.setEmail(request.getParameter("email"));
 			}
 			if(null != request.getParameter("userId")) {
-				user.setRegisterId(Long.parseLong(request.getParameter("userId")));
+				user.setRegisterId(request.getParameter("userId"));
 			}
 			if(null != currentUser) {
 				user.setUpdatedBy(currentUser);

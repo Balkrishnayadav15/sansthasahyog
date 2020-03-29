@@ -38,6 +38,10 @@ public class GetAdminsController extends HttpServlet {
 		try {
 			List<User> allUser = register.getAllAdminUser();
 			request.setAttribute("ALL_ADMIN", allUser);
+			
+			List<String> allUserIds = register.getAllUserIds();
+			request.setAttribute("REG_IDS", allUserIds);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

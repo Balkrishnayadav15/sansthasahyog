@@ -26,72 +26,15 @@
 <body>
    <div id="divLoading"> 
    </div>
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center justify-content-between no-gutters">
-                       <div class="col-xl-3 col-lg-3" style="padding:30px;">
-                            <div class="logo-img">
-                                <a href="index.jsp">
-                                    <img src="img/Logo.png" alt="" style="height: 47px;width:316px">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-9">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.jsp">Home</a></li>
-                                         <li><a href="about.html">Our Services</a></li>
-                                          <li><a href="about.html">Media</a></li>
-                                           <li><a href="about.html">Online Serives</a></li>
-                                        <li><a href="about.html">About Us</a></li>                                        
-                                        <!-- <li><a href="#">Gallery <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="index.jsp">Photos</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container" style="background-color:#000">
-	                <div class="row">
-	                  <div class="col-xl-12 col-lg-12 d-none d-lg-block">
-	                            <div class="social_media_links">
-	                            <a style="color: white;cursor: pointer;" onclick="logout()">Logout</a>
-	                               
-	                            </div>
-	                        </div>
-	                </div>
-	          </div>
-            </div>
-        </div>
-    </header>
+    <jsp:include page="header.jsp" /> 
     <!-- header-end -->
 
     <!-- slider_area_start -->
       <div class="logout_class" style="display:none;padding:0 10px 0 0;"><a style="color: white;cursor: pointer;" onclick="logout()">Logout</a></div>
 	<div class="main">
     <div class="container">
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <!-- Links -->
-                    <ul class="navbar-nav">
-                      <li class="nav-item">
-                          <a  class="nav-link" href="admin">User List</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="">Admin User</a>
-                      </li>
-                    </ul>
-                </nav>
+           <jsp:include page="adminHeader.jsp" /> 
+           
        <div id="success_user_div" style="display:none;margin-top:20px;margin-botton:20px;height:500px">
        	<span id = "success_user"></span>
        	 <button type="submit" id="addNewUserButton">Click here to add new User</button>
@@ -122,6 +65,20 @@
                                 <input type="text" placeholder="Institue/Firm Address" name="school_address" id="school_address"/>
                                  <div class="alert alert-danger" role="alert" id="school_address_error" style="display:none">
 									  Please enter Institute/Firm address.
+								 </div>
+                        </div>
+                         <div class="form-group">
+                                <label for="school_address">Dise code :</label>
+                                <input type="text" placeholder="Dise code" name="diseCode" id="diseCode"/>
+                                 <div class="alert alert-danger" role="alert" id="diseCode_error" style="display:none">
+									  Please enter Dise Code.
+								 </div>
+                        </div>
+                         <div class="form-group">
+                                <label for="school_address">Affiliation number :</label>
+                                <input type="text" placeholder="Affiliation number" name="affNumber" id="affNumber"/>
+                                 <div class="alert alert-danger" role="alert" id="affNumber_error" style="display:none">
+									  Please enter Affiliation number.
 								 </div>
                         </div>
                         <div class="form-group">
@@ -298,6 +255,20 @@
 											  Please enter user address.
 								</div>
 						</div>
+					<!-- 	<div class="form-group">
+                                <label for="userType">City :</label>
+                                <div class="form-select">
+                                    <select name="userCity" id=""userCity"">
+                                        <option value="SUT">Select City</option>
+                                        <option value="Director">Director</option>
+                                        <option value="Professional">Professional</option>
+                                    </select>
+                                    <span class="select-icon"><i class="zmdi zmdi-chevron-down"></i></span>
+                                </div>
+                                 <div class="alert alert-danger" role="alert" id="userType_error" style="display:none">
+									  Please select User Type.
+									</div>
+                            </div> -->
                         <div class="form-group">
                             <label for="address">Mobile number :</label>
                             <input type="text" placeholder="Mobile number" name="mobile" id="mobile"/>
@@ -351,84 +322,8 @@
 
  
     <!-- footer_start -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row"  style="background:#202020 !important">
-                    <div class="col-xl-4 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="index.jsp">
-                                   <!-- <img src="img/Logo.png" alt="">-->
-                                </a>
-                            </div>
-                           <p class="footer_text">416 Bhagirath Pura, Indore, M.P<br>
-                                8109033456, 9827016480, 9977866588<br>
-                                <a class="domain" href="#">vijay.dubey@sansthasahyog.com</a></p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Userfull Area
-                            </h3>
-                            <ul>
-                                <li><a href="#">Advertisment Area
-                                    </a></li>
-                                <li><a href="#">Academic Area</a></li>
-                                <li><a href="#">Non Academic Area</a></li>
-                                <li><a href="#">School Area</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Useful Links
-                            </h3>
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#"> Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                    Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
-                            </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </footer>
+     <jsp:include page="footer.jsp" />  
+
     <!-- footer_end -->
 
 

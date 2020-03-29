@@ -46,9 +46,9 @@ public class DeleteController extends HttpServlet {
 		Map<String,Object> result = new HashMap<String,Object>();
 		if(sessionUser.equals(currentUser)) {
 			
-			long userId = 0;
+			String userId = null;
 			if(null != request.getParameter("userId")) {
-				userId = Long.parseLong(request.getParameter("userId"));
+				userId = request.getParameter("userId");
 			}
 			
 			try {

@@ -84,14 +84,31 @@ public class RegisterContorller extends HttpServlet {
 			if(null != request.getParameter("registerFees")) {
 				user.setRegisterFees(request.getParameter("registerFees"));
 			}
+			if(null != request.getParameter("affNumber")) {
+				user.setAffilition_code((request.getParameter("affNumber")));
+			}
+			if(null != request.getParameter("diseCode")) {
+				user.setDise_code((request.getParameter("diseCode")));
+			}
+			if(null != currentUser) {
+				user.setCreatedBy(currentUser);
+			}
+			if(null != currentUser) {
+				user.setCreatedBy(currentUser);
+			}
 			if(null != currentUser) {
 				user.setCreatedBy(currentUser);
 			}
 			
-			long nextRegNum;
+			long nextRegNum = 000;
 			try {
 				nextRegNum = register.getNextRegistrationNumber();
-				user.setRegisterId(nextRegNum);
+				
+				String userId = "SAN"+ request.getParameter("name").substring(0, 3).toUpperCase();
+				userId = userId+String.format("%03d", nextRegNum);
+				
+				user.setId(nextRegNum);
+				user.setRegisterId(userId);
 				user = register.saveUserDetails(user);
 				if(null != user) {
 					result.put("USER", user);
