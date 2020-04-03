@@ -1,0 +1,51 @@
+.addHistory{
+    background-color: cadetblue;
+    color: white;
+    width: 57px;
+}
+.bodyTag-odd{
+	color: #f10c8bf0;
+    font-family: arial black;
+    font-size: 18px;
+}
+.bodyTag{
+	color: #f10c8bf0;
+    font-family: arial black;
+    font-size: 18px;
+}
+.bodyTag-even{
+	color: #e0daec;
+    font-family: arial black;
+    font-size: 18px;
+}
+.headerTag{
+	color: #5112cc;
+    font-size: 38px;
+    font-family: Comic Sans MS;
+}
+.headerTagAdmin-odd{
+	color: #5112cc;
+    font-size: 15px;
+    font-family: Comic Sans MS;
+    margin-bottom: 0px;
+}
+.headerTagAdmin-even{
+	color: #e0daec;
+    font-size: 15px;
+    font-family: Comic Sans MS;
+    margin-bottom: 0px;
+}
+.manageHeading{
+	color:#e03705;
+}
+.action-even{
+	background-color: #0eefef
+}
+.action-button-even{
+    background-color: #636363;
+    padding: 8px 0px 8px 0px;
+}
+.action-button-odd{
+	background-color: #ffeb00;
+    padding: 8px 0px 8px 0px;
+}

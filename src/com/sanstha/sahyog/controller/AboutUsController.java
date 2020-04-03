@@ -38,18 +38,23 @@ public class AboutUsController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		String type = req.getParameter("type");
+		String method = req.getParameter("_method");
 		AboutUsDao aboutDao= new AboutUsDao();
+		
+		 if("DELETE".equals(method)){
+				String id = req.getParameter("id");
+				boolean isAbout = aboutDao.deleteAboutUs(id);
+				if(isAbout) {
+					req.setAttribute("DELETED", "DELETED");
+				}
+		 }	
 		String redirect = req.getParameter("redirect"); 
 		try {
-			Map<String, String> aboutUsType = aboutDao.getAboutUsType(type);
+			List<Map<String,String>> aboutUsType = aboutDao.getAboutUsType(type);
 			req.setAttribute("ABOUT-US", aboutUsType);
 			req.setAttribute("TYPE", type);
 		} 
@@ -57,7 +62,6 @@ public class AboutUsController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		if("admin".equals(redirect)){
 			String adminJsp = "/adminAbout.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(adminJsp);
@@ -77,26 +81,43 @@ public class AboutUsController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String method = request.getParameter("_method");
 		String type = request.getParameter("type");
 		AboutUsDao aboutDao= new AboutUsDao();
 		
-		String header = request.getParameter("header");
-		String body = request.getParameter("body");
-		
-		boolean isAbout = aboutDao.saveAboutUs(header, body, type);
-		Map<String, String> aboutUsType = aboutDao.getAboutUsType(type);
+		if("PUT".equals(method)){
+			String header = request.getParameter("header");
+			String body = request.getParameter("body");
+			String id = request.getParameter("id");
+			boolean isAbout = aboutDao.updateAboutUs(header, body, type,id);
+			if(isAbout) {
+				request.setAttribute("EDITED", "EDITED");
+			}
+		}else if("DELETE".equals(method)){
+			String id = request.getParameter("id");
+			boolean isAbout = aboutDao.deleteAboutUs(id);
+			if(isAbout) {
+				request.setAttribute("DELETED", "DELETED");
+			}
+		}else{
+			String header = request.getParameter("header");
+			String body = request.getParameter("body");
+			boolean isAbout = aboutDao.saveAboutUs(header, body, type);
+			if(isAbout) {
+				request.setAttribute("ABOUT_US_SAVE", "SAVED");
+			}
+		}
+		List<Map<String,String>> aboutUsType = aboutDao.getAboutUsType(type);
 		request.setAttribute("ABOUT-US", aboutUsType);
 		request.setAttribute("TYPE", type);
-		if(isAbout) {
-			request.setAttribute("ABOUT_US_SAVE", "SAVED");
-		}
+		
 		
 		String adminJsp = "/adminAbout.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(adminJsp);
 		dispatcher.include(request,response);
-
 		
 		
 	}
 
+	
 }

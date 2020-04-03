@@ -54,6 +54,7 @@
 				<li><a class="dropdown-item submenu-link" href="aboutUs?type=duties&redirect=admin" >Duties</a></li>
 			</ul>
 		</li>
+		<li class="nav-item"><a class="nav-link" href="meeting">Meeting Desk</a></li>
 	</ul>
 	<!-- Links FOR Non Admin -->
 	<%

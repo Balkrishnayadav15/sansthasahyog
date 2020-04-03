@@ -27,99 +27,91 @@
   
    <jsp:include page="header.jsp" />  
     <!-- header-end -->
-   <%
-	List<Map<String,String>> aboutUs = (List<Map<String,String>>)request.getAttribute("ABOUT-US");
-	%>
-     <!-- Start about us -->
- <div class="about-box-main">
-        <div class="container">
-            <div class="row">
-				<!-- <div class="col-lg-6">
-                    <div class="banner-frame"> <img class="img-fluid" src="img/signup-img.jpg" alt="">
-                    </div>
-                </div> -->
-                <%
-                for (int i=0;i<aboutUs.size();i++) {
-                %>
-                <div class="col-lg-12">
-                    <h2 class="noo-sh-title-top headerTag "><%=aboutUs.get(i).get("header") %></span></h2>
-                    <p class="bodyTag"><%=aboutUs.get(i).get("body") %></p>
-                </div>
-                <%} %>
-            </div>
-            <div class="row my-5">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Trusted</h3>
-                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Professional</h3>
-                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="service-block-inner">
-                        <h3>We are Expert</h3>
-                        <p>Santstha Sahyog is dedicated to full fill trust of all members. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-12">
-                    <h2 class="noo-sh-title">Meet Our Team</h2>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="img/signup-img.jpg" alt="">
-                            <div class="team-content">
-                                <h3 class="title">Vijay Dubey</h3> <span class="post">Owner</span> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="img/signup-img.jpg" alt="">
-                            <div class="team-content">
-                                <h3 class="title">Vijay Dubey</h3> <span class="post">Owner</span> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="img/signup-img.jpg" alt="">
-                            <div class="team-content">
-                                <h3 class="title">Vijay Dubey</h3> <span class="post">Owner</span> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="hover-team">
-                        <div class="our-team"> <img src="img/signup-img.jpg" alt="">
-                            <div class="team-content">
-                                <h3 class="title">Vijay Dubey</h3> <span class="post">Owner</span> </div>
-                        </div>
-                        <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
-                        </div>
-                        <hr class="my-0"> </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--     End of about us body
- --> 
+     <div class="about-box-main">
+        <div class="container" style="padding-bottom: 80px;">
+  <!-- Start manage meeting history section -->
+       		<div class="row">
+       			<div class="col-lg-12">
+					    <div class="panel-heading">
+					      <h2 class="meetingHeader" style="padding-bottom: 30px;color:#1714d2">Welcome to Meeting Desk</h2>
+					    </div>
+				</div> 
+		   </div>
+		  
+				<div class="row">
+					<div class="col-lg-2" style="background-color: #fbf3f4;padding-top:20px;text-align:center;">
+						<h2 class="tableHeader" style="color:#e81131;font-size: 22px;font-weight: bold;">Meeting Id</h2>
+					</div>
+					<div class="col-lg-2" style="background-color: #f9e4e7;;padding-top:13px;text-align:center;">
+						<h2 class="tableHeader" style="color:#e81131;font-size: 22px;font-weight: bold;">Date and Time</h2>
+					</div>
+					<div class="col-lg-2" style="background-color: #f9d1d7;;padding-top:20px;text-align:center;">
+						<h2 class="tableHeader" style="color:#e81131;font-size: 22px;font-weight: bold;">Topic</h2>
+					</div>
+					<div class="col-lg-2" style="background-color: #f193a1;padding-top: 20px;text-align:center;">
+						<h2 class="tableHeader" style="color:#fbf3f4;font-size: 22px;font-weight: bold;">Documents</h2>
+					</div>
+					<div class="col-lg-2" style="background-color: #f3687c;padding-top:20px;text-align:center;">
+						<h2 class="tableHeader" style="color:#fbf3f4;font-size: 22px;font-weight: bold;">Venue</h2>
+					</div>
+					<div class="col-lg-2" style="background-color: #b10b23;padding-top:20px;text-align:center;">
+						
+					</div>
+					
+				</div>
+				<%
+				 	List<Meeting> meetingList = (List<Meeting>)request.getAttribute("MEETING_LIST");
+					if(null!=meetingList){
+						int i = 0;
+						for(Meeting meeting:meetingList){
+				 if(i%2 == 0){
+				%>
+				<div class="row">
+				<%}else{ %>
+				<div class="row" style="background-color: #ecd7d7;">
+				<% } %>
+					<div class="col-lg-2" style="padding-top:20px;text-align:center;">
+						<%=meeting.getMeetingId() %>
+					</div>
+					<div class="col-lg-2" style="padding-top:13px;text-align:center;">
+						<%=meeting.getMeetingDate() %> &nbsp; <%=meeting.getMeetingTime() %>
+					</div>
+					<div class="col-lg-2" style="padding-top:20px;text-align:center;">
+						<%=meeting.getTopic() %>
+					</div>
+					
+					
+					<div class="col-lg-2" style="padding: 5px">
+					<%
+							List<String> ncDoc = (List<String>)meeting.getNonConfiPaperName();
+							if(null != ncDoc && ncDoc.size() > 0){
+								for(String ncName : ncDoc){
+						%>
+						<a style="word-break: break-all;color: blue;font-weight: bold;" target="_blank" href="downloadFile?fileName=<%=ncName %>&meetingId=<%=meeting.getMeetingId() %>&fileType=nonConfidential" ><%=ncName %></a>
+						<br>
+						<%
+							}	}
+						%>
+					</div>
+					<div class="col-lg-2" style="padding-top:20px;text-align:center;">
+						<%=meeting.getVenue() %>
+					</div>
+					
+					<div class="col-lg-2">
+						<% if("N".equals(meeting.getStatus())) {%>
+						<img style="width: 91px;height: 70px;padding-left: 10px;" src="img/new.gif">
+					<% } %>
+					</div>
+				</div>
+				
+					
+				<%
+				i++;}}
+				%>
+		</div>
+		</div>		
+			</div>		
+		<!-- End manage meeting history section -->
     <!-- footer_start -->
     <footer class="footer">
         <div class="footer_top">

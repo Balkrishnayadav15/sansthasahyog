@@ -18,7 +18,7 @@
 										<li><a href="#">Our Services</a>
 											 <ul class="submenu">
 		                                         <li><a href="index.jsp">R & D</a></li>
-		                                         <li><a href="index.jsp">Meeting Desk</a></li>
+		                                         <li><a href="meeting?type=nonadmin">Meeting Desk</a></li>
 		                                         <li><a href="index.jsp">Current Targets</a></li>
 		                                         <li><a href="index.jsp">Career counselling for students</a></li>
 		                                         <li><a href="index.jsp">Teacher Training Seminar</a></li>

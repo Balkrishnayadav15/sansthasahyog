@@ -18,37 +18,53 @@ import java.util.Base64;
 import java.util.List;
 public class BannerDao {
 
-	public boolean saveGalleryImages(Part image) {
+	public String saveGalleryImages(Part image,String name) {
 			
 		 	Connection conn=null;
-	        PreparedStatement stmt=null;
-	      
-	        String imgId = "IMG";
+	        PreparedStatement stmt=null,checkStmt = null;
+	        boolean isFilePresent = false;
+	        String savedStatus = "";
 	        try {
-	        	long nextId = getNextGalleryImgNumber();
-	  	        imgId = imgId+String.format("%03d", nextId);
-
 	        	conn = DBUtil.getConnection();
-	        	stmt = conn.prepareStatement("insert into banner(id, image_id, photo) values(?,?,?)");
-				InputStream is = image.getInputStream();
-				stmt.setLong(1, nextId);
-				stmt.setString(2, imgId);
-				stmt.setBlob(3, is);
-				int row = stmt.executeUpdate();
-	            if(row == 1) {
-	            	return true;
+	        	
+	        	//check file is already present or not
+
+	        	checkStmt = conn.prepareStatement("select count(1) from banner where image_id = ?");
+	        	checkStmt.setString(1, name);
+	        	ResultSet rs = checkStmt.executeQuery();
+	            while(rs.next()) {
+	            	 if(rs.getLong(1) > 0){
+	            		 isFilePresent = false;
+	            		 savedStatus = "duplicate";
+	            	 }else{
+	            		 isFilePresent = true;
+	            	 }
+				}
+	            if(isFilePresent){ 
+		        	stmt = conn.prepareStatement("insert into banner(image_id, photo) values(?,?)");
+					InputStream is = image.getInputStream();
+					stmt.setString(1, name);
+					stmt.setBlob(2, is);
+					int row = stmt.executeUpdate();
+		            if(row == 1) {
+		            	savedStatus = "saved";
+		            }
 	            }
 	        }catch(Exception e) {
 	        	e.printStackTrace();
+	        	savedStatus = "server";
 	        }finally  {
 		           try {
-					stmt.close();
+		        	   if(isFilePresent){
+							stmt.close();
+			        	}
+		        	   checkStmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 	        }
-		return false;
+	        return savedStatus;
 	}
 	
 	public long getNextGalleryImgNumber() throws Exception {

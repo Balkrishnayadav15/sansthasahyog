@@ -1,0 +1,43 @@
+.setupMeeting{
+padding-top: 32px;
+}
+
+.tableHeading{
+    font-weight: 700;
+    color: #f10606;
+    font-family: 'Montserrat';
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom:0px;
+}
+.meetingHeader
+{
+	line-height: 1.66;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    color: #6051e0;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-top: 32px;
+}
+.formModalHeader{
+color: red;
+    margin-bottom: 0px;
+}
+.messageText{
+	color: red;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+.formLables{
+   color: #002bff;
+    font-size: 18px;
+}
+.tableHeader{
+	font-size: 20px;
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    font-weight: bold;
+}

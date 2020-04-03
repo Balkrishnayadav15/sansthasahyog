@@ -21,12 +21,11 @@
     <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/register.css">
      <link rel="stylesheet" href="css/loader.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
      <style>
-     *, ::after, ::before {
-    box-sizing: unset !important;
-}
-tr:nth-child(even) {background-color: #f2f2f2;}
+     	*, ::after, ::before {
+    	box-sizing: unset !important;
+		}
+		tr:nth-child(even) {background-color: #f2f2f2;}
      </style>
 </head>
 
@@ -51,13 +50,35 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 						    <div>
 						      <h2 class="adminHeader">Upload Banner Image</h2>
 						    </div>
-						    <%
+						        <%
+						        String imageNotFound = (String)request.getAttribute("IMAGENOTFOUND");
+						        String seltedImageId = (String) request.getAttribute("IMAGE_ID");
+						        if(!"IMAGENOTFOUND".equals(imageNotFound)){
 								      String isSave = (String)request.getAttribute("IS_IMG_SAVED");
-								      	if(null != isSave && "YES".equals(isSave)){
-								      %>
-								      <div id="success_message" style="color:red "> <h3 style="font-weight: bold;color: red;font-family: monospace;">Banner image Saved successfully
-								      </h3> </div>
-							<% } %>
+						    		  String fileSize = (String)request.getAttribute("FileSize");
+					         		  if(!"EXCEED".equals(fileSize)){
+							  		  if(null != isSave && "duplicate".equals(isSave)){
+							  	%>
+								      <div id="success_message" style="color:red "> 
+								      	<h3 style="font-weight: bold;color: red;font-family: monospace;"><%=seltedImageId %> Image is already present in banner images.Please check your image.</h3> 
+								      </div>
+								<% }else if(null != isSave && "saved".equals(isSave)){ %>
+										  <div id="success_message" style="color:red "> 
+									      		<h3 style="font-weight: bold;color: red;font-family: monospace;"><%=seltedImageId%> image is saved in banner successfully.</h3> 
+									  	   </div>
+								<% }else if(null != isSave && "server".equals(isSave)){ %>
+										<div id="success_message" style="color:red "> 
+									      	<h3 style="font-weight: bold;color: red;font-family: monospace;">Can not save image.Please Contact the admin.</h3> 
+									    </div>
+								<% }}else{ %>
+									    <div id="success_message" style="color:red "> 
+									      	<h3 style="font-weight: bold;color: red;font-family: monospace;">Image file exceed 500kb limit.Please check the file size limit.</h3> 
+									    </div>
+								<% }}else if("IMAGENOTFOUND".equals(imageNotFound)){ %>
+								 <div id="success_message" style="color:red "> 
+								      	<h3 style="font-weight: bold;color: red;font-family: monospace;">Please select the image.</h3> 
+								  </div>
+								<%} %>
 						  <form method="post" action="banner" enctype="multipart/form-data">
 						    <div>
 						      <input id="gallery_file" type="file" name="image" style="width:25%"/>
@@ -73,22 +94,24 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 								      <h2 class="adminHeader">View Banner Image</h2>
 								      <%
 								      String isDelete = (String)request.getAttribute("IS_IMG_DELETE");
+								      String imgDelete = (String)request.getAttribute("DEL_IMAGE_ID");
+
 								      	if(null != isDelete && "YES".equals(isDelete)){
 								      %>
-								      <div id="success_message" style="width:100%; height:100%;color:red "> <h3 style="font-weight: bold;color: red;font-family: monospace;">Banner image deleted successfully
+								      <div id="success_message" style="width:100%; height:100%;color:red "> <h3 style="font-weight: bold;color: red;font-family: monospace;"><%=imgDelete %> image deleted from banner successfully
 								      </h3> </div>
 								      <% } %>
 								    </div>
 								    <div class="form-row">
 			                            <div class="form-group-name">
-			                                <select name="galleryImgId" id="galleryImgId" style="width:20%">
+			                                <select name="galleryImgId" id="galleryImgId" style="width:20%" onchange="viewImage()" >
 			                                    <option value="0">Select Image Id</option>
 			                                    <% 
 			                                    	List<String> imageIds = (List<String>)request.getAttribute("GALLERY_IMG_IDS");
 			                                    	if(null != imageIds){
 			                                    		for(String imageId : imageIds){
 			                                    %>
-												<option value="<%=imageId %>"><%=imageId %></option>
+												<option value="<%=imageId %>" <% if(imageId.equals(seltedImageId)) {%>selected<%} %> > <%=imageId %></option>
 												<% 
 			                                    	}}
 												%>
@@ -104,8 +127,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 						   		</div>
 						   		<div style="width:15%;margin-top:15px">
 						   			<button onclick="deleteImage()" class="btn btn-danger" style="margin-left: 10px;float: right;">Delete</button>								    
-									<button onclick="viewImage()" class="btn btn-info" style="margin-left: 10px;float: right;">View</button>								    
-			                     </div> 
+<!-- 									<button onclick="viewImage()" class="btn btn-info" style="margin-left: 10px;float: right;">View</button>								    
+ -->			                     </div> 
 								<%
 									}
 								%>
